@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class PlayerOld
+     : MonoBehaviour {
 
     [SerializeField]
     private PlayerControl control;
@@ -24,7 +25,6 @@ public class Player : MonoBehaviour {
                                                transform.position.y + direction.y * speed,
                                                0.0f);
 
-        float angle = Mathf.Atan2(aim.y, aim.x);
-        transform.Rotate(0.0f, 0.0f, angle * 180 / Mathf.PI * angularSpeed);
+        
 	}
 }
