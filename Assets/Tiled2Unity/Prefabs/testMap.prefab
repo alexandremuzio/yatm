@@ -952,8 +952,8 @@ PolygonCollider2D:
       - {x: 2302, y: -1664}
     - - {x: 638, y: -1923}
       - {x: 514, y: -1923}
-      - {x: 514, y: -2496}
-      - {x: 638, y: -2496}
+      - {x: 514, y: -2240}
+      - {x: 638, y: -2240}
 --- !u!114 &11413682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1053,13 +1053,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0619e460a775cc458d37cb4a214a189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumTilesWide: 20
-  NumTilesHigh: 20
+  NumTilesWide: 30
+  NumTilesHigh: 18
   TileWidth: 128
   TileHeight: 128
   ExportScale: 1
-  MapWidthInPixels: 2560
-  MapHeightInPixels: 2560
+  MapWidthInPixels: 3840
+  MapHeightInPixels: 2304
 --- !u!114 &11491204
 MonoBehaviour:
   m_ObjectHideFlags: 1
