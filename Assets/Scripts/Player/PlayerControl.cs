@@ -21,7 +21,7 @@ public class PlayerControl : IControl
         //Debug.Log("Joystick" + _index + "XAxis");
         //Debug.Log("Joystick" + _index + "YAxis");
 
-        //Debug.Log("index " + _index + ": " + x + " " +  y);
+        Debug.Log("index " + _index + ": " + x + " " + y);
 
         if (x*x + y*y < dead_zone)
         {

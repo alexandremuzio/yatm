@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -8,54 +7,41 @@ public class Player : MonoBehaviour
 
     Transform rotationCenter;
     Collider2D terrainCollider;
-    Vector2 lastAim;
+    Vector2 lastDirection;
 
-    float turnRate = 90;
-    float playerSpeed = 0.03f;
+    public float playerSpeed = 5f;
 
-	// Use this for initialization
 	void Start () {
         control = new PlayerControl(1);
         rotationCenter = transform.FindChild("RotationCenter");
-        //terrainCollider = transform.FindChild("TerrainCollider").GetComponent(Collider2D;
     }
+
 
     void FixedUpdate()
     {
         Vector2 direction = control.GetDirection();
         Vector2 aim = control.GetAim();
 
-        transform.Translate(direction * playerSpeed);
+        transform.position = new Vector3(transform.position.x + Time.deltaTime * playerSpeed * direction.x,
+                                         transform.position.y + Time.deltaTime * playerSpeed * direction.y,
+                                         0.0f);
 
-        Debug.DrawLine(rotationCenter.position, aim);
+        float angle = 0.0f;
+        if (aim.SqrMagnitude() > 0)
+            angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
 
-        /*Vector3 dir = rotationCenter.position - (Vector3)aim;
-        float angle = Mathf.Atan2(dir.y, dir.x);
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * turnRate);*/
+        else if (aim.SqrMagnitude() == 0 && direction.SqrMagnitude() > 0)
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        /*
-        float angle = Mathf.Atan2(aim.y, aim.x);
-        transform.Rotate(0.0f, 0.0f, angle * 180 / Mathf.PI * angularSpeed);
+        else
+            angle = Mathf.Atan2(lastDirection.y, lastDirection.x) * Mathf.Rad2Deg;
 
-        if (Input.GetKey("up"))//Press up arrow key to move forward on the Y AXIS
-        {
-            transform.Translate(0, playerSpeed * Time.deltaTime, 0);
-        }
 
-        if (Input.GetKey("down"))//Press up arrow key to move forward on the Y AXIS
-        {
-            transform.Translate(0, -playerSpeed * Time.deltaTime, 0);
-        }
+        transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-        if (Input.GetKey("right")) //Right arrow key to turn right
-        {
-            transform.RotateAround(rotationCenter.position, Vector3.forward, -turnRate * Time.deltaTime);
-        }
+        if (direction != Vector2.zero)
+            lastDirection = direction;
 
-        if (Input.GetKey("left"))//Left arrow key to turn left
-        {
-            transform.RotateAround(rotationCenter.position, Vector3.forward, turnRate * Time.deltaTime);
-        }*/
+        //Debug.DrawRay(rotationCenter.position, aim);
     }
 }
