@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 8/22/2015 2:00:22 PM-->
+<!--Last exported: 8/22/2015 8:26:20 PM-->
 <Tiled2Unity version="0.9.11.2">
   <AssignMaterial mesh="mesh_[00]_[12]" material="land_sand13" sortingLayerName="" sortingOrder="0" />
   <AssignMaterial mesh="mesh_[00]_[13]" material="land_sand14" sortingLayerName="" sortingOrder="0" />
@@ -33,23 +33,24 @@
       <GameObject name="Collision">
         <PolygonCollider2D>
           <Path>2174,-258 1922,-258 1922,-384 2174,-384</Path>
-          <Path>1918,-259 1794,-259 1794,-576 1918,-576</Path>
+          <Path>1918,-259 1794,-259 1794,-509 1918,-509</Path>
           <Path>2174,-386 1922,-386 1922,-512 2174,-512</Path>
           <Path>254,-514 2,-514 2,-640 254,-640</Path>
           <Path>510,-514 258,-514 258,-640 510,-640</Path>
           <Path>766,-514 514,-514 514,-640 766,-640</Path>
           <Path>1022,-514 770,-514 770,-640 1022,-640</Path>
-          <Path>1150,-643 1026,-643 1026,-1216 1150,-1216</Path>
+          <Path>1150,-643 1026,-643 1026,-893 1150,-893</Path>
+          <Path>1150,-899 1026,-899 1026,-1149 1150,-1149</Path>
           <Path>2174,-1282 1922,-1282 1922,-1408 2174,-1408</Path>
           <Path>2430,-1282 2178,-1282 2178,-1408 2430,-1408</Path>
-          <Path>2046,-1411 1922,-1411 1922,-1728 2046,-1728</Path>
-          <Path>2430,-1411 2306,-1411 2306,-1728 2430,-1728</Path>
+          <Path>2046,-1411 1922,-1411 1922,-1661 2046,-1661</Path>
+          <Path>2430,-1411 2306,-1411 2306,-1661 2430,-1661</Path>
           <Path>2302,-1538 2050,-1538 2050,-1664 2302,-1664</Path>
-          <Path>638,-1923 514,-1923 514,-2240 638,-2240</Path>
+          <Path>638,-1923 514,-1923 514,-2173 638,-2173</Path>
         </PolygonCollider2D>
       </GameObject>
     </GameObject>
-    <GameObject name="AbstractionsLayer_02">
+    <GameObject name="EnemySpawner1_02">
       <GameObject copy="mesh_[02]_[16]" />
     </GameObject>
   </Prefab>
