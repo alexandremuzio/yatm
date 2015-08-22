@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-interface IControl
+public interface IControl
 {
     Vector2 GetDirection();
     Vector2 GetAim();
