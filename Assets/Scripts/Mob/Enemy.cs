@@ -7,18 +7,10 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    Rigidbody2D rb2d;
-
-    public Player player;
     private float speed = 200f;
     private float rotateSpeed = 1200f;
 
     private IStrategy movementStrategy;
-
-    void Start()
-    {
-        rb2d = GetComponent<Rigidbody2D>();
-    }
 
     void FixedUpdate()
     {
@@ -33,6 +25,11 @@ public class Enemy : MonoBehaviour
         movementStrategy = new EnemyFollowStrategy(this, go);
     }
 
+    public void SetPathToFollow(List<Vector2> path)
+    {
+        movementStrategy = new EnemyPathStrategy(this, path);
+    }
+
     public float GetSpeed()
     {
         return speed;
@@ -43,8 +40,4 @@ public class Enemy : MonoBehaviour
         return rotateSpeed;
     }
 
-    public void SetPathToFollow(List<Vector2> path)
-    {
-        movementStrategy = new EnemyPathStrategy(this, path);
-    }
 }
