@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11423596}
   - 50: {fileID: 5000916}
   m_Layer: 0
-  m_Name: PlayerNew
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
