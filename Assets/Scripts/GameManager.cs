@@ -1,15 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
-	// Use this for initialization
+    [SerializeField]
+    private Player playerPrefab;
+
+    public List<IControl> controllers;
+    
+    public GameManager()
+    {
+        controllers = new List<IControl>();
+    }
+
 	void Start () {
-	
+
+        var player = Instantiate<Player>(playerPrefab);
+
+        /// FOR TESTING PURPOSES, SET A CONTROL HERE;
+        var control = XBoxJoystickControl.GetControl();
+        if(control != null)
+        {
+            control.SetControllable(player);
+            controllers.Add(control);
+        }
+        else
+        {
+            throw new MissingReferenceException("No control found.");
+        }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    void Update()
+    {
+        foreach(IControl c in controllers)
+        {
+            c.Update();
+        }
+    }
 }
