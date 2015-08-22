@@ -20,7 +20,6 @@ namespace Assets.Scripts.Mob.Strategies
             rb2d = enemy.GetComponent<Rigidbody2D>();
         }
 
-
         public void Run()
         {            
             var moveToDir = (target.transform.position - enemy.transform.position).normalized;

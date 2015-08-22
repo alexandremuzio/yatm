@@ -27,7 +27,9 @@ public class Enemy : MonoBehaviour
 
     public void SetPathToFollow(List<Vector2> path)
     {
-        movementStrategy = new EnemyPathStrategy(this, path);
+        var strategy = new EnemyPathStrategy(this, path);
+        strategy.OnPathFinished += (object sender, EventArgs args) => { Destroy(this.gameObject); };
+        movementStrategy = strategy;
     }
 
     public float GetSpeed()

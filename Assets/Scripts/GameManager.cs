@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -33,13 +34,6 @@ public class GameManager : MonoBehaviour {
         var enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
         var enemy = Instantiate<Enemy>(enemyPrefab);
         enemy.SetGameObjectToFollow(player.gameObject);
-
-        var enemy2 = Instantiate<Enemy>(enemyPrefab);
-        List<Vector2> path = new List<Vector2>();
-        path.Add(new Vector2(3229f, -818f));
-        path.Add(new Vector2(3278f, -1656f));
-        path.Add(new Vector2(2182f, -2050f));
-        enemy.SetPathToFollow(path);
     }
 
     void Update()
