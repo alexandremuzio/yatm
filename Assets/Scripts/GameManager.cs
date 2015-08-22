@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
-    [SerializeField]
     private Player playerPrefab;
 
     public List<IControl> controllers;
@@ -16,6 +15,7 @@ public class GameManager : MonoBehaviour {
 
 	void Start () {
 
+        var playerPrefab = Resources.Load<Player>("Prefabs/Player");
         var player = Instantiate<Player>(playerPrefab);
 
         /// FOR TESTING PURPOSES, SET A CONTROL HERE;
