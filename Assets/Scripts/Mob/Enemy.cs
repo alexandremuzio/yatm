@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Assets.Scripts.Mob;
 
 public class Enemy : MonoBehaviour
 {
@@ -66,5 +67,15 @@ public class Enemy : MonoBehaviour
     {
         return rotateSpeed;
     }
+
+    [SerializeField]
+    private Attacker attacker;
+
+    void OnCollisionStay2D(Collision2D coll)
+    {
+        attacker.Attack(coll);
+    }
+
+    
 
 }
