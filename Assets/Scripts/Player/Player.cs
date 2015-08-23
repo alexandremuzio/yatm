@@ -10,9 +10,12 @@ public class Player : MonoBehaviour, IControllable
 
     private Vector2 moveToDir;
     private Vector2 lookAtDir;
-    
+    private IWeapon weapon;
+
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
+
+        weapon = MachineGun.Create(this);
     }
 
     void FixedUpdate()
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour, IControllable
         var angle = 0.0f;
         var didAngleChange = false;
 
-        if(lookAtDir.sqrMagnitude > 0)
+        if (lookAtDir.sqrMagnitude > 0)
         {
             angle = Mathf.Atan2(lookAtDir.y, lookAtDir.x) * Mathf.Rad2Deg;
             didAngleChange = true;
@@ -55,13 +58,19 @@ public class Player : MonoBehaviour, IControllable
         this.lookAtDir = dir;
     }
 
-    public void ActionA()
-    {
-        Debug.Log("ACTION_A");
+    public void ActionFire0()
+    { 
+        weapon.Shoot();
     }
 
-    public void ActionB()
+    public void ActionFire1()
     {
         throw new NotImplementedException();
     }
+
+    //public void AddGun<T>() where T : MonoBehaviour, IWeapon
+    //{
+    //    GameObject gunObject = transform.FindChild("GunPosition").gameObject;
+    //    T newWeapon = gunObject.AddComponent<T>();
+    //}
 }
