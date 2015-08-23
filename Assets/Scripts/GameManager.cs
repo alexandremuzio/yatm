@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour {
     private float unpauseTime;
     private float startTime;
 
-    public float firstPhaseLength = 1f; //in seconds;
-    public float secondPhaseLength = 10f;
-    public float endedPhaseLength = 20f;
+    public float firstPhaseLength = 10f; //in seconds;
+    public float secondPhaseLength = 20f;
+    public float endedPhaseLength = 30f;
 
     public List<IControl> controllers;
     public GameState state;

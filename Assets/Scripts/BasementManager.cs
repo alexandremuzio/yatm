@@ -17,7 +17,8 @@ public class BasementManager : MonoBehaviour
     NPC npcPrefab;
     List<GameObject> npcBodiesPrefabList;
 
-    void Start () {
+    void Start()
+    {
         npcPrefab = Resources.Load<NPC>("Prefabs/NPC");
         var basementPrefab = Resources.Load<Basement>("Prefabs/Basement");
 
@@ -47,7 +48,8 @@ public class BasementManager : MonoBehaviour
     {
 
         foreach (Transform t in respawnPoints)
-        {   if(peopleCount > 5)
+        {
+            if (peopleCount > 5)
             {
                 break;
             }
@@ -66,10 +68,9 @@ public class BasementManager : MonoBehaviour
         npc.SetBasementToWanderAround(basement);
         npcs.Add(npc);
         npc.DiedEvent += OnDiedEvent;
-        
+
     }
 
- 
     private void OnDiedEvent(object sender, EventArgs e)
     {
         NPC npc = (NPC)sender;

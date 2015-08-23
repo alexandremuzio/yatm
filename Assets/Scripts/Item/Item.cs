@@ -50,7 +50,9 @@ public class Item : MonoBehaviour {
         rbody.drag = startForceDrag;
         rbody.gravityScale = 0;
 
-        var force = new Vector2(UnityEngine.Random.RandomRange(-1, 1), UnityEngine.Random.RandomRange(-1, 1)).normalized * UnityEngine.Random.RandomRange(0, startForceIntensity);
+        var force = new Vector2(UnityEngine.Random.RandomRange(-1, 1),
+                                UnityEngine.Random.RandomRange(-1, 1)).normalized
+                                    * UnityEngine.Random.RandomRange(0, startForceIntensity);
         rbody.AddForce(force);    
 
     }

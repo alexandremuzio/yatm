@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11476090}
   - 114: {fileID: 11431784}
   - 114: {fileID: 11433152}
+  - 114: {fileID: 11476690}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 130392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1277.44946, y: -791.763916, z: 4.83908033}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ae2a20217890f48b12f68a03d01063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstPhaseLength: 1
-  secondPhaseLength: 10
-  endedPhaseLength: 20
+  firstPhaseLength: 10
+  secondPhaseLength: 20
+  endedPhaseLength: 30
   state: 0
   lastState: 0
 --- !u!114 &11476090
@@ -80,13 +81,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81a47782ec360c547ad401589b8736fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11476690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 130392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8161ee003bc65ac40a4b34e7f09305fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayDuration: 0
+  gameManager: {fileID: 0}
+  light: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: firstPhaseLength
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: secondPhaseLength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: endedPhaseLength
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 130392}
