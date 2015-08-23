@@ -8,9 +8,26 @@ public class Player : MonoBehaviour, IControllable
     public float rotateSpeed = 1000f;
     public float playerSpeed = 5f;
 
+    public void SayName(string n)
+    {
+        Debug.Log("My name is " + n);
+    }
+
     private Vector2 moveToDir;
     private Vector2 lookAtDir;
     private IWeapon weapon;
+    public IWeapon Weapon
+    {
+        get
+        {
+            return weapon;
+        }
+
+        private set
+        {
+            weapon = value;
+        }
+    }
 
     void Start()
     {

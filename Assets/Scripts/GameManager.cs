@@ -24,35 +24,41 @@ public class GameManager : MonoBehaviour {
     public GameState state;
     public GameState lastState;
 
-    public GameManager()
+    private PlayerManager playerManager;
+
+    void Awake()
     {
-        controllers = new List<IControl>();
+        playerManager = GetComponent<PlayerManager>();
     }
 
 	void Start ()
     {
-        var playerPrefab = Resources.Load<Player>("Prefabs/Player");
-        var player = Instantiate<Player>(playerPrefab);
+        controllers = new List<IControl>();
+        
+        XBoxJoystickControl.Reset();
 
-        /// FOR TESTING PURPOSES, SET A CONTROL HERE;
-        var control = XBoxJoystickControl.GetControl();
-        if(control != null)
-        {
-            control.SetControllable(player);
-            controllers.Add(control);
-            control.PauseRequestEvent += OnPauseRequestEvent;
-        }
-        else
-        {
-            throw new MissingReferenceException("No control found.");
-        }
+        var noControlAvailable = false;
 
-        var enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
-        var enemy = Instantiate<Enemy>(enemyPrefab);
-        enemy.SetGameObjectToFollow(player.gameObject);
+        for(int i = 0; i < 4 && !noControlAvailable; i++)
+        {
+            var control = XBoxJoystickControl.GetControl();
+            if (control != null)
+            {
+                var player = playerManager.CreatePlayer();
+                if (player != null)
+                {
+                    control.SetControllable(player);
+                    controllers.Add(control);
+                    control.PauseRequestEvent += OnPauseRequestEvent;
+                }
+            }
+            else
+            {
+                noControlAvailable = true;
+            }
+        }
 
         state = GameState.FirstPhase;
-
         startTime = Time.time;
     }
 
