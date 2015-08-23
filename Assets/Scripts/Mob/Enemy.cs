@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
-
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
@@ -39,7 +38,6 @@ public class Enemy : MonoBehaviour
     public void SetPathToFollow(List<Vector2> path)
     {
         var strategy = new EnemyPathStrategy(this, path);
-        Debug.Log(path.Count.ToString());
         strategy.OnPathFinished += (object sender, EventArgs args) => {
             if(nextStrategy != null)
             {

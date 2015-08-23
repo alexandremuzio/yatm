@@ -14,7 +14,6 @@ class RaycastBullet : MonoBehaviour
 
     public static RaycastBullet Create(Vector2 initialPos, Vector2 initialDirection)
     {
-        Debug.Log("In create!");
         var raycastPrefab = Resources.Load<RaycastBullet>("Prefabs/RaycastBullet");
         RaycastBullet bullet = Instantiate(raycastPrefab);
 
