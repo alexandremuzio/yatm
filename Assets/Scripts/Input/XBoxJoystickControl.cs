@@ -18,11 +18,15 @@ class XBoxJoystickControl : IControl
     public static XBoxJoystickControl GetControl()
     {
         var joysticks = Input.GetJoystickNames();
-
         if ((indexCounter + 1) > joysticks.Length)
             return null;
 
         return new XBoxJoystickControl(++indexCounter, 0.3f);
+    }
+
+    public static void Reset()
+    {
+        indexCounter = 0;
     }
 
     public void SetControllable(IControllable controllable)
