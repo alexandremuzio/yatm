@@ -49,8 +49,7 @@ public class Item : MonoBehaviour {
         rbody.drag = startForceDrag;
         rbody.gravityScale = 0;
 
-        System.Random rnd = new System.Random();
-        var force = new Vector2((float)rnd.NextDouble() - 0.5f, (float)rnd.NextDouble() - 0.5f).normalized * startForceIntensity;
+        var force = new Vector2(UnityEngine.Random.RandomRange(-1, 1), UnityEngine.Random.RandomRange(-1, 1)).normalized * UnityEngine.Random.RandomRange(0, startForceIntensity);
         rbody.AddForce(force);    
 
     }
@@ -67,7 +66,6 @@ public class Item : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag != "Player") return;
-        Debug.Log("And it was a player!");
 
         var p = other.transform.parent.gameObject.GetComponent<Player>();
 

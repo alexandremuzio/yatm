@@ -6,8 +6,10 @@ using System;
 [Serializable]
 public class ItemBag {
 
+    [Serializable]
     class ItemItem
     {
+        [SerializeField]
         public string Name {get; private set;}
         public Action<Player> Effect {get; private set;}
 
@@ -26,10 +28,10 @@ public class ItemBag {
         {"SayMonster", (p) => p.SayName("I am the monster")},        
     };
 
-    private List<ItemItem> itemActions = new List<ItemItem>();
-
     [SerializeField]
-    List<string> possibleKeys;
+    private List<ItemItem> itemActions = new List<ItemItem>();
+        
+    private List<string> possibleKeys;
 
     private System.Random rnd;
 
@@ -41,7 +43,7 @@ public class ItemBag {
     public ItemBag()
     {
         rnd = new System.Random();
-        _size = rnd.Next(maxSize);
+        _size = rnd.Next(maxSize + 1);
         for (int i = 0; i < _size; i++)
         {
             int sel = rnd.Next(PossibleItemActions.Count);     
