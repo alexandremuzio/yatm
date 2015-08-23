@@ -8,32 +8,18 @@ public class Player : MonoBehaviour, IControllable
     public float rotateSpeed = 1000f;
     public float playerSpeed = 5f;
 
-    public void SayName(string n)
-    {
-        Debug.Log("My name is " + n);
-    }
-
     private Vector2 moveToDir;
     private Vector2 lookAtDir;
-    private IWeapon weapon;
-    public IWeapon Weapon
-    {
-        get
-        {
-            return weapon;
-        }
+    private SelfAttacker attacker;
 
-        private set
-        {
-            weapon = value;
-        }
-    }
+    public IWeapon Weapon { get; private set; }
 
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
 
-        weapon = MachineGun.Create(this);
+        attacker = new SelfAttacker(Time.time);
+        Weapon = MachineGun.Create(this);
     }
 
     void FixedUpdate()
@@ -80,19 +66,19 @@ public class Player : MonoBehaviour, IControllable
     {
         if (state == GameState.Paused) return;
 
-        weapon.Shoot();
+        Weapon.Shoot();
     }
 
     public void ActionFire1(GameState state)
     {
-        throw new NotImplementedException();
+        if (state == GameState.Paused) return;
+        
+        if (attacker.CanHurtSelf())
+        {
+            Health health = gameObject.GetComponentInChildren<Health>();
+            health.Damage(attacker.Damage);
+        }
     }
-
-    //public void AddGun<T>() where T : MonoBehaviour, IWeapon
-    //{
-    //    GameObject gunObject = transform.FindChild("GunPosition").gameObject;
-    //    T newWeapon = gunObject.AddComponent<T>();
-    //}
 
     [SerializeField]
     bool _isMonster = false;

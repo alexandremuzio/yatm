@@ -81,7 +81,4 @@ public class Enemy : MonoBehaviour
     {
         attacker.Attack(coll);
     }
-
-    
-
 }

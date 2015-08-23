@@ -3,6 +3,8 @@ using UnityEngine;
 
 class XBoxJoystickControl : IControl
 {
+    public float triggerThreshold = 0.3f;
+
     private static int indexCounter = 0;
 
     private IControllable controllable;
@@ -61,9 +63,14 @@ class XBoxJoystickControl : IControl
             controllable.LookAtDir(new Vector2(x, y).normalized);
         }
 
-        if (Input.GetAxisRaw("Joystick" + index + "Fire0") > 0.3f)
+        if (Input.GetAxisRaw("Joystick" + index + "Fire0") > triggerThreshold)
         {
             controllable.ActionFire0(state);
+        }
+
+        if (Input.GetAxisRaw("Joystick" + index + "Fire1") > triggerThreshold)
+        {
+            controllable.ActionFire1(state);
         }
 
         if (Input.GetButton("Start"))
@@ -71,7 +78,6 @@ class XBoxJoystickControl : IControl
             if (PauseRequestEvent != null)
             {
                 PauseRequestEvent(this, null);
-                Debug.Log("Hello darkness");
             }
             
         }
