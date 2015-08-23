@@ -58,9 +58,11 @@ public class MobManager : MonoBehaviour {
         var body = Instantiate<GameObject>(enemyBodiesPrefabList[bodyIndex]);
         body.transform.parent = e.transform;
         body.transform.localPosition = body.transform.Find("RotationCenter").transform.position * (-1);
-        
-        e.SetPathToFollow(path);
+
+        e.SetFollowStrategy(basementManager.GetNPCList, playerManager.GetPlayerList);
+        /*e.SetPathToFollow(path);
         e.SetNextStrategyPeopleAttack(basementManager.GetNPCList, playerManager.GetPlayerList);
+        */
         
     }
 }

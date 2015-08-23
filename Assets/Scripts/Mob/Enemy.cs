@@ -46,11 +46,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void SetGameObjectToFollow(GameObject go)
-    {
-        movementStrategy = new EnemyFollowStrategy(this, go);
-    }
-
     public void SetPathToFollow(List<Vector2> path)
     {
         var strategy = new EnemyPathStrategy(this, path);
@@ -86,5 +81,10 @@ public class Enemy : MonoBehaviour
     void OnCollisionStay2D(Collision2D coll)
     {
         attacker.Attack(coll);
+    }
+
+    public void SetFollowStrategy(Func<List<NPC>> getNPCList, Func<List<Player>> getPlayerList)
+    {
+        movementStrategy = new EnemyFollowStrategy(this, getNPCList, getPlayerList);
     }
 }
