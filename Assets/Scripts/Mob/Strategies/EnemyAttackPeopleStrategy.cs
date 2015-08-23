@@ -14,19 +14,21 @@ namespace Assets.Scripts.Mob.Strategies
         Rigidbody2D rb2d;
 
         private Func<List<NPC>> getListOfNPC;
-        private NPC target;
+        private Func<List<Player>> getListOfPlayers;
+        private Transform target;
 
-        public EnemyAttackPeopleStrategy(Enemy enemy, Func<List<NPC>> getListOfNPC)
+        public EnemyAttackPeopleStrategy(Enemy enemy, Func<List<NPC>> getListOfNPC, Func<List<Player>> getListOfPlayers)
         {
             this.enemy = enemy;
             this.getListOfNPC = getListOfNPC;
+            this.getListOfPlayers = getListOfPlayers;
             rb2d = enemy.GetComponent<Rigidbody2D>();
             target = null;
         }
 
-        private float GetDistance(NPC target)
+        private float GetDistance(Transform target)
         {
-            return (target.transform.position - enemy.transform.position).sqrMagnitude;
+            return (target.position - enemy.transform.position).sqrMagnitude;
         }
 
         public void Run()
@@ -40,10 +42,29 @@ namespace Assets.Scripts.Mob.Strategies
                     foreach (var npc in npcs)
                     {
                         if (target == null ||
-                            GetDistance(npc) < GetDistance(target))
+                            GetDistance(npc.transform) < GetDistance(target))
                         {
-                            target = npc;
+                            target = npc.transform;
                         }
+                    }
+                }
+                else
+                {
+                    var players = getListOfPlayers();
+                    if(players.Count > 0)
+                    {
+                        foreach (var player in players)
+                        {
+                            if (target == null ||
+                                GetDistance(player.transform) < GetDistance(target))
+                            {
+                                target = player.transform;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Target not found");
                     }
                 }
             }

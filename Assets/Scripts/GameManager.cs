@@ -10,6 +10,16 @@ public enum GameState
     Ended
 }
 
+public class GameStateChangedEventArgs : EventArgs
+{
+    public GameState newGameState { get; private set; }
+
+    public GameStateChangedEventArgs(GameState newGameState)
+    {
+        this.newGameState = newGameState;
+    }
+}
+
 public class GameManager : MonoBehaviour {
 
     private Player playerPrefab;
@@ -25,13 +35,24 @@ public class GameManager : MonoBehaviour {
     public GameState lastState;
 
     private PlayerManager playerManager;
+    private BasementManager basementManager;
+
+    public event EventHandler<GameStateChangedEventArgs> GameStateChangedEvent;
 
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
+        basementManager = GetComponent<BasementManager>();
+        basementManager.AllCitizensDiedEvent += OnAllCitiziensDiedEvent;
     }
 
-	void Start ()
+    private void OnAllCitiziensDiedEvent(object sender, EventArgs e)
+    {
+        Debug.Log("ALLL CITIZEEENS DIED MODAFUCKA");
+        ChangeState(GameState.Ended);
+    }
+
+    void Start ()
     {
         controllers = new List<IControl>();
         
@@ -58,7 +79,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        state = GameState.FirstPhase;
+        ChangeState(GameState.FirstPhase);
         startTime = Time.time;
     }
 
@@ -70,14 +91,14 @@ public class GameManager : MonoBehaviour {
         {
             Time.timeScale = 1.0f;
             state = lastState;
-            lastState = GameState.Paused;
+            ChangeState(GameState.Paused);
         }
 
         else
         {
             Time.timeScale = 0.0f;
             lastState = state;
-            state = GameState.Paused;
+            ChangeState(GameState.Paused);
         }
         unpauseTime = Time.realtimeSinceStartup + 0.5f;
         Debug.Log("Pause requested");
@@ -87,6 +108,15 @@ public class GameManager : MonoBehaviour {
     public float GetElapsedTime()
     {
         return Time.time - startTime;
+    }
+
+    private void ChangeState(GameState newState)
+    {
+        this.state = newState;
+        if(GameStateChangedEvent != null)
+        {
+            GameStateChangedEvent(this, new GameStateChangedEventArgs(newState));
+        }
     }
 
     void Update()
@@ -103,14 +133,14 @@ public class GameManager : MonoBehaviour {
             case GameState.FirstPhase:
                 if (Time.time > firstPhaseLength)
                 {
-                    state = GameState.SecondPhase;
+                    ChangeState(GameState.SecondPhase);
                 }
                 break;
 
             case GameState.SecondPhase:
                 if (Time.time > secondPhaseLength)
                 {
-                    state = GameState.Ended;
+                    ChangeState(GameState.Ended);
                 }
                 break;
 
