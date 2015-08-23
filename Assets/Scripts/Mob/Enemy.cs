@@ -14,6 +14,13 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    private ItemBag itemBag;
+
+    void Start()
+    {
+        itemBag = new ItemBag();
+    }
+
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
@@ -76,6 +83,9 @@ public class Enemy : MonoBehaviour
         attacker.Attack(coll);
     }
 
-    
+    void OnDestroy()
+    {
+        itemBag.Open(transform);
+    }
 
 }
