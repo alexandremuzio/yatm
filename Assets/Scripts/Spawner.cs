@@ -7,27 +7,13 @@ public class Spawner : MonoBehaviour {
     [SerializeField]
     private Spawnable spawned;
 
-    [SerializeField]
-    private bool ShowSpawner = false;
-
     private Vector2 spawnPosition;
 
     void Start()
     {
-        var cc = gameObject.AddComponent<CircleCollider2D>();
-        cc.isTrigger = true;
-        spawnPosition = cc.offset;
-        Destroy(cc);
-
-        spawned.Spawn(spawnPosition);
+        spawned.Spawn(transform.position);
     }
     
-	void Update () 
-    {
-        var mr = GetComponent<MeshRenderer>();
-        mr.enabled = ShowSpawner;             
- 
-	}
 
     [ContextMenu("Stop!")]
     void StopVibrate()
