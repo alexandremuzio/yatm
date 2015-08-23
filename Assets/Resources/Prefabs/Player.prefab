@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   offset: 60
+  isVisible: 1
 --- !u!212 &21211714
 SpriteRenderer:
   m_ObjectHideFlags: 1
