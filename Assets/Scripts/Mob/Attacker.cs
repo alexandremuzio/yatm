@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -20,9 +17,9 @@ public class Attacker
     [SerializeField]
     private float lastAttackTime;
     System.Random rnd;
-    public Attacker()
+    public Attacker(float currentGameTime)
     {
-        lastAttackTime = Time.time;
+        lastAttackTime = currentGameTime;
         rnd = new System.Random();
     }
 

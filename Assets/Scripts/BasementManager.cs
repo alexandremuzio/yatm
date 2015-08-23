@@ -53,10 +53,21 @@ public class BasementManager : MonoBehaviour
         npc.transform.position = position;
         npc.SetBasementToWanderAround(basement);
         npcs.Add(npc);
+        npc.DiedEvent += OnDiedEvent;
+        
+    }
+
+ 
+    private void OnDiedEvent(object sender, EventArgs e)
+    {
+        NPC npc = (NPC)sender;
+
+        npcs.Remove(npc);
     }
 
     public List<NPC> GetNPCList()
     {
         return npcs;
     }
+
 }

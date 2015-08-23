@@ -16,8 +16,15 @@ public class Enemy : MonoBehaviour
 
     private ItemBag itemBag;
 
+
+    private Attacker attacker;
+
+    public event EventHandler DiedEvent;
+
+
     void Start()
     {
+        attacker = new Attacker(Time.time);
         itemBag = new ItemBag();
     }
 
@@ -74,9 +81,6 @@ public class Enemy : MonoBehaviour
     {
         return rotateSpeed;
     }
-
-    [SerializeField]
-    private Attacker attacker;
 
     void OnCollisionStay2D(Collision2D coll)
     {
