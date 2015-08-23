@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
@@ -13,8 +14,8 @@ public class GameManager : MonoBehaviour {
         controllers = new List<IControl>();
     }
 
-	void Start () {
-
+	void Start ()
+    {
         var playerPrefab = Resources.Load<Player>("Prefabs/Player");
         var player = Instantiate<Player>(playerPrefab);
 
@@ -29,7 +30,11 @@ public class GameManager : MonoBehaviour {
         {
             throw new MissingReferenceException("No control found.");
         }
-	}
+
+        var enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
+        var enemy = Instantiate<Enemy>(enemyPrefab);
+        enemy.SetGameObjectToFollow(player.gameObject);
+    }
 
     void Update()
     {
