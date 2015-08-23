@@ -13,6 +13,16 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+
+    void Update()
+    {
+        Health health = gameObject.GetComponentInChildren<Health>();
+        if (!health.IsAlive())
+        {
+            //Create animation
+            Destroy(gameObject);
+        }
+    }
     void FixedUpdate()
     {
         if (movementStrategy != null)
