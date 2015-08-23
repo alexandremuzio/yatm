@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using Assets.Scripts.Mob;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,8 +14,15 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    private Attacker attacker;
+
     public event EventHandler DiedEvent;
 
+
+    void Start()
+    {
+        attacker = new Attacker(Time.time);
+    }
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
@@ -68,5 +76,12 @@ public class Enemy : MonoBehaviour
     {
         return rotateSpeed;
     }
+
+    void OnCollisionStay2D(Collision2D coll)
+    {
+        attacker.Attack(coll);
+    }
+
+    
 
 }

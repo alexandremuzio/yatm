@@ -4,8 +4,8 @@ using System;
 
 public enum GameState
 {
-    CoOp,
-    MonsterTime,
+    FirstPhase,
+    SecondPhase,
     Paused,
     Ended
 }
@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour {
 
     private Player playerPrefab;
     private float unpauseTime;
+    private float startTime;
+
+    public float firstPhaseLength = 1f; //in seconds;
+    public float secondPhaseLength = 10f;
+    public float endedPhaseLength = 20f;
 
     public List<IControl> controllers;
     public GameState state;
@@ -46,7 +51,9 @@ public class GameManager : MonoBehaviour {
         var enemy = Instantiate<Enemy>(enemyPrefab);
         enemy.SetGameObjectToFollow(player.gameObject);
 
-        state = GameState.CoOp;
+        state = GameState.FirstPhase;
+
+        startTime = Time.time;
     }
 
     private void OnPauseRequestEvent(object sender, EventArgs e)
@@ -68,12 +75,18 @@ public class GameManager : MonoBehaviour {
         }
         unpauseTime = Time.realtimeSinceStartup + 0.5f;
         Debug.Log("Pause requested");
+
+    }
+
+    public float GetElapsedTime()
+    {
+        return Time.time - startTime;
     }
 
     void Update()
     {
         //if (state == GameState.Paused) return;
-
+        
         foreach (IControl c in controllers)
         {
             c.Update(state);
@@ -81,9 +94,25 @@ public class GameManager : MonoBehaviour {
 
         switch (state)
         {
-            case GameState.CoOp:
+            case GameState.FirstPhase:
+                if (Time.time > firstPhaseLength)
+                {
+                    state = GameState.SecondPhase;
+                }
                 break;
-            case GameState.MonsterTime:
+
+            case GameState.SecondPhase:
+                if (Time.time > secondPhaseLength)
+                {
+                    state = GameState.Ended;
+                }
+                break;
+
+            case GameState.Ended:
+                if (Time.time > endedPhaseLength)
+                {
+                    //ending conditions here
+                }
                 break;
         }
     }

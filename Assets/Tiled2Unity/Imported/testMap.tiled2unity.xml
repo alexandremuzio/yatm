@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 8/22/2015 10:22:20 PM-->
+<!--Last exported: 8/23/2015 1:23:22 PM-->
 <Tiled2Unity version="0.9.11.2">
   <AssignMaterial mesh="mesh_[00]_[12]" material="land_sand13" sortingLayerName="" sortingOrder="0" />
   <AssignMaterial mesh="mesh_[00]_[13]" material="land_sand14" sortingLayerName="" sortingOrder="0" />
@@ -50,25 +50,10 @@
       </GameObject>
     </GameObject>
     <GameObject name="EnemySpawn">
-      <GameObject name="TileObject" x="1540" y="-900" rotation="0">
+      <GameObject name="TileObject" x="52" y="-296" rotation="0">
         <Property name="spawner" value="enemy" />
       </GameObject>
-      <GameObject name="TileObject" x="2816" y="-772" rotation="0">
-        <Property name="spawner" value="enemy" />
-      </GameObject>
-      <GameObject name="TileObject" x="2944" y="-1920" rotation="0">
-        <Property name="spawner" value="enemy" />
-      </GameObject>
-      <GameObject name="TileObject" x="2372" y="-1024" rotation="0">
-        <Property name="spawner" value="enemy" />
-      </GameObject>
-      <GameObject name="TileObject" x="3384" y="-1224" rotation="0">
-        <Property name="spawner" value="enemy" />
-      </GameObject>
-      <GameObject name="TileObject" x="3512" y="-564" rotation="0">
-        <Property name="spawner" value="enemy" />
-      </GameObject>
-      <GameObject name="TileObject" x="980" y="-1804" rotation="0">
+      <GameObject name="TileObject" x="3636" y="-300" rotation="0">
         <Property name="spawner" value="enemy" />
       </GameObject>
     </GameObject>

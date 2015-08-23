@@ -76,4 +76,12 @@ public class Player : MonoBehaviour, IControllable
     //    GameObject gunObject = transform.FindChild("GunPosition").gameObject;
     //    T newWeapon = gunObject.AddComponent<T>();
     //}
+
+    [SerializeField]
+    bool _isMonster = false;
+
+    internal bool IsMonster()
+    {
+        return _isMonster;
+    }
 }

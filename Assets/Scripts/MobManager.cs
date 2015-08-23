@@ -17,6 +17,7 @@ public class MobManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         basementManager = GetComponent<BasementManager>();
 
         enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
@@ -39,18 +40,17 @@ public class MobManager : MonoBehaviour {
         }
     }
 
-	void Update () {
-        timer += Time.deltaTime;
-        if(timer >= 3.0f)
+    public void Spawn(Transform t, Spawnable s)
+    {
+        Enemy e = s.Spawn(t.position).GetComponent<Enemy>();
+        if (e == null)
         {
-            foreach(Transform t in spawnPoints)
-            {
-                var enemy2 = Instantiate<Enemy>(enemyPrefab);
-                enemy2.transform.position = t.position;
-                enemy2.SetPathToFollow(path);
-                enemy2.SetNextStrategyPeopleAttack(basementManager.GetNPCList);
-            }
-            timer -= 3.0f;
+            Debug.Log("Could not find component of type enemy");
+            return;
         }
-	}
+        
+        e.SetPathToFollow(path);
+        e.SetNextStrategyPeopleAttack(basementManager.GetNPCList);
+        
+    }
 }

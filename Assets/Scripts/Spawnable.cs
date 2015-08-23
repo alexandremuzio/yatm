@@ -2,9 +2,29 @@
 
 public class Spawnable : MonoBehaviour
 {
-    public void Spawn(Vector2 position)
+    private static GameObject _parent;
+    private static GameObject parent
     {
-        var c = Instantiate<Spawnable>(this);
-        c.transform.position = position;
+        get
+        {
+            if(_parent == null)
+            {
+                _parent = new GameObject("SpawnableParent");
+            }
+            return _parent;
+        }
+    }
+    
+    public Spawnable Spawn(Vector2 position)
+    {
+        var s = Instantiate<Spawnable>(this);
+        s.transform.position = position;
+       
+        return s;
+    }
+
+    void Start()
+    {
+        transform.parent = parent.transform;
     }
 }
