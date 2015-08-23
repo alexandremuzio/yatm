@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
 
     public event EventHandler DiedEvent;
 
-
     void Start()
     {
         attacker = new Attacker(Time.time);
@@ -33,11 +32,20 @@ public class Enemy : MonoBehaviour
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
-            //Create animation
             itemBag.Open(transform);
-            Destroy(gameObject);    
+            Die();
         }
     }
+
+    public void Die()
+    {
+        if (DiedEvent != null)
+        {
+            DiedEvent(this, null);
+        }
+        Destroy(gameObject);
+    }
+
     void FixedUpdate()
     {
         if (movementStrategy != null)
