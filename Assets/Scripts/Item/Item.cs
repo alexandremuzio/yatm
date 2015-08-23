@@ -38,6 +38,7 @@ public class Item : MonoBehaviour {
         transform.parent = parent.transform;
         gameObject.AddComponent<SpriteRenderer>();
         gameObject.GetComponent<SpriteRenderer>().sprite = itemSprite;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         gameObject.AddComponent<BoxCollider2D>();
         var bcoll = gameObject.GetComponent<BoxCollider2D>();

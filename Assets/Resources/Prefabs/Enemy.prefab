@@ -118,7 +118,6 @@ Transform:
   m_RootOrder: 1
 --- !u!50 &5018668
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -127,11 +126,11 @@ Rigidbody2D:
   m_LinearDrag: 5
   m_AngularDrag: 20
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &11409918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,7 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemBag:
     itemActions: []
-    maxSize: 5
 --- !u!114 &11490282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -159,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   offset: -60
+  isVisible: 0
 --- !u!212 &21232460
 SpriteRenderer:
   m_ObjectHideFlags: 1

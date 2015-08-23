@@ -16,7 +16,7 @@ public class MobManager : MonoBehaviour {
     BasementManager basementManager;
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     { 
         basementManager = GetComponent<BasementManager>();
 
