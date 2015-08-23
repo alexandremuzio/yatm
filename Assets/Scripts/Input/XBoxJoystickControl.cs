@@ -9,6 +9,8 @@ class XBoxJoystickControl : IControl
     private int index;
     private float deadzone;
 
+    public event EventHandler PauseRequestEvent;
+
     private XBoxJoystickControl(int index, float deadzone)
     {
         this.index = index;
@@ -34,7 +36,7 @@ class XBoxJoystickControl : IControl
         this.controllable = controllable;
     }
 
-    public void Update()
+    public void Update(GameState state)
     {
         if(controllable == null)
         {
@@ -59,9 +61,19 @@ class XBoxJoystickControl : IControl
             controllable.LookAtDir(new Vector2(x, y).normalized);
         }
 
-        if(Input.GetButton("Joystick" + index + "Fire0"))
+        if (Input.GetAxisRaw("Joystick" + index + "Fire0") > 0.3f)
         {
-            controllable.ActionFire0();
+            controllable.ActionFire0(state);
+        }
+
+        if (Input.GetButton("Start"))
+        {
+            if (PauseRequestEvent != null)
+            {
+                PauseRequestEvent(this, null);
+                Debug.Log("Hello darkness");
+            }
+            
         }
     }
 }

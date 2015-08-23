@@ -9,12 +9,19 @@ public class NPC : MonoBehaviour
 
     private IStrategy movementStrategy;
 
+    public event EventHandler DiedEvent;
+
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
             //Create animation
+
+            if (DiedEvent != null)
+            {
+                DiedEvent(this, null);
+            }
             Destroy(gameObject);
         }
     }

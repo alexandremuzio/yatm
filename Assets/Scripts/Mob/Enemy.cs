@@ -14,6 +14,20 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    private ItemBag itemBag;
+
+
+    private Attacker attacker;
+
+    public event EventHandler DiedEvent;
+
+
+    void Start()
+    {
+        attacker = new Attacker(Time.time);
+        itemBag = new ItemBag();
+    }
+
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
@@ -68,14 +82,14 @@ public class Enemy : MonoBehaviour
         return rotateSpeed;
     }
 
-    [SerializeField]
-    private Attacker attacker;
-
     void OnCollisionStay2D(Collision2D coll)
     {
         attacker.Attack(coll);
     }
 
-    
+    void OnDestroy()
+    {
+        itemBag.Open(transform);
+    }
 
 }

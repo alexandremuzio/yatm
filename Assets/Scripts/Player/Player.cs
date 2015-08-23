@@ -8,11 +8,29 @@ public class Player : MonoBehaviour, IControllable
     public float rotateSpeed = 1000f;
     public float playerSpeed = 5f;
 
+    public void SayName(string n)
+    {
+        Debug.Log("My name is " + n);
+    }
+
     private Vector2 moveToDir;
     private Vector2 lookAtDir;
     private IWeapon weapon;
+    public IWeapon Weapon
+    {
+        get
+        {
+            return weapon;
+        }
 
-    void Start () {
+        private set
+        {
+            weapon = value;
+        }
+    }
+
+    void Start()
+    {
         rb2d = GetComponent<Rigidbody2D>();
 
         weapon = MachineGun.Create(this);
@@ -31,7 +49,7 @@ public class Player : MonoBehaviour, IControllable
             angle = Mathf.Atan2(lookAtDir.y, lookAtDir.x) * Mathf.Rad2Deg;
             didAngleChange = true;
         }
-        else if(moveToDir.sqrMagnitude > 0)
+        else if (moveToDir.sqrMagnitude > 0)
         {
             angle = Mathf.Atan2(moveToDir.y, moveToDir.x) * Mathf.Rad2Deg;
             didAngleChange = true;
@@ -58,12 +76,14 @@ public class Player : MonoBehaviour, IControllable
         this.lookAtDir = dir;
     }
 
-    public void ActionFire0()
-    { 
+    public void ActionFire0(GameState state)
+    {
+        if (state == GameState.Paused) return;
+
         weapon.Shoot();
     }
 
-    public void ActionFire1()
+    public void ActionFire1(GameState state)
     {
         throw new NotImplementedException();
     }

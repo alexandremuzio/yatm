@@ -1,14 +1,28 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 
-public class GameManager : MonoBehaviour
+public enum GameState
 {
+    FirstPhase,
+    SecondPhase,
+    Paused,
+    Ended
+}
+
+public class GameManager : MonoBehaviour {
+
+    private Player playerPrefab;
+    private float unpauseTime;
     private float startTime;
 
-    private List<IControl> controllers;
+    public float firstPhaseLength = 1f; //in seconds;
+    public float secondPhaseLength = 10f;
+    public float endedPhaseLength = 20f;
+
+    public List<IControl> controllers;
+    public GameState state;
+    public GameState lastState;
 
     private PlayerManager playerManager;
 
@@ -35,6 +49,7 @@ public class GameManager : MonoBehaviour
                 {
                     control.SetControllable(player);
                     controllers.Add(control);
+                    control.PauseRequestEvent += OnPauseRequestEvent;
                 }
             }
             else
@@ -43,7 +58,30 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        state = GameState.FirstPhase;
         startTime = Time.time;
+    }
+
+    private void OnPauseRequestEvent(object sender, EventArgs e)
+    {
+        if (Time.realtimeSinceStartup < unpauseTime) return;
+
+        if (state == GameState.Paused)
+        {
+            Time.timeScale = 1.0f;
+            state = lastState;
+            lastState = GameState.Paused;
+        }
+
+        else
+        {
+            Time.timeScale = 0.0f;
+            lastState = state;
+            state = GameState.Paused;
+        }
+        unpauseTime = Time.realtimeSinceStartup + 0.5f;
+        Debug.Log("Pause requested");
+
     }
 
     public float GetElapsedTime()
@@ -53,9 +91,36 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        foreach(IControl c in controllers)
+        //if (state == GameState.Paused) return;
+        
+        foreach (IControl c in controllers)
         {
-            c.Update();
+            c.Update(state);
+        }
+
+        switch (state)
+        {
+            case GameState.FirstPhase:
+                if (Time.time > firstPhaseLength)
+                {
+                    state = GameState.SecondPhase;
+                }
+                break;
+
+            case GameState.SecondPhase:
+                if (Time.time > secondPhaseLength)
+                {
+                    state = GameState.Ended;
+                }
+                break;
+
+            case GameState.Ended:
+                if (Time.time > endedPhaseLength)
+                {
+                    //ending conditions here
+                }
+                break;
         }
     }
+
 }
