@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
-public class GameManager : MonoBehaviour {
-
-    private Player playerPrefab;
+public class GameManager : MonoBehaviour
+{
+    private float startTime;
 
     public List<IControl> controllers;
-    
+
     public GameManager()
     {
         controllers = new List<IControl>();
@@ -31,9 +32,12 @@ public class GameManager : MonoBehaviour {
             throw new MissingReferenceException("No control found.");
         }
 
-        var enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
-        var enemy = Instantiate<Enemy>(enemyPrefab);
-        enemy.SetGameObjectToFollow(player.gameObject);
+        startTime = Time.time;
+    }
+
+    public float GetElapsedTime()
+    {
+        return Time.time - startTime;
     }
 
     void Update()
