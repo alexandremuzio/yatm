@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -31,5 +32,10 @@ class PlayerManager : MonoBehaviour
         players.Add(player);
 
         return player;
+    }
+
+    public List<Player> GetPlayerList()
+    {
+        return players;
     }
 }

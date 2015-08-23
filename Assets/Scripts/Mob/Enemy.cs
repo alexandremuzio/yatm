@@ -68,9 +68,9 @@ public class Enemy : MonoBehaviour
         movementStrategy = strategy;
     }
 
-    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC)
+    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC, Func<List<Player>> getListOfPlayers)
     {
-        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC);
+        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC, getListOfPlayers);
     }
 
     public float GetSpeed()

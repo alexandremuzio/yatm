@@ -13,12 +13,15 @@ public class MobManager : MonoBehaviour {
     GameObject pathPrefab;
     GameObject spawnersPrefab;
     List<GameObject> enemyBodiesPrefabList;
+
     BasementManager basementManager;
+    PlayerManager playerManager;
 
     // Use this for initialization
     void Start ()
     { 
         basementManager = GetComponent<BasementManager>();
+        playerManager = GetComponent<PlayerManager>();
 
         enemyBodiesPrefabList = new List<GameObject>();
 
@@ -57,7 +60,7 @@ public class MobManager : MonoBehaviour {
         body.transform.localPosition = body.transform.Find("RotationCenter").transform.position * (-1);
         
         e.SetPathToFollow(path);
-        e.SetNextStrategyPeopleAttack(basementManager.GetNPCList);
+        e.SetNextStrategyPeopleAttack(basementManager.GetNPCList, playerManager.GetPlayerList);
         
     }
 }
