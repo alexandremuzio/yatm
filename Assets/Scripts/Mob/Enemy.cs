@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private float rotateSpeed = 1200f;
 
     private IStrategy movementStrategy;
+    private IStrategy nextStrategy;
 
     void FixedUpdate()
     {
@@ -28,8 +29,23 @@ public class Enemy : MonoBehaviour
     public void SetPathToFollow(List<Vector2> path)
     {
         var strategy = new EnemyPathStrategy(this, path);
-        strategy.OnPathFinished += (object sender, EventArgs args) => { Destroy(this.gameObject); };
+        strategy.OnPathFinished += (object sender, EventArgs args) => {
+            if(nextStrategy != null)
+            {
+                movementStrategy = nextStrategy;
+                nextStrategy = null;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        };
         movementStrategy = strategy;
+    }
+
+    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC)
+    {
+        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC);
     }
 
     public float GetSpeed()

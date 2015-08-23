@@ -13,8 +13,12 @@ public class MobManager : MonoBehaviour {
     GameObject pathPrefab;
     GameObject spawnersPrefab;
 
+    BasementManager basementManager;
+
     // Use this for initialization
     void Start () {
+        basementManager = GetComponent<BasementManager>();
+
         enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
         pathPrefab = Resources.Load<GameObject>("Prefabs/Path0");
         spawnersPrefab = Resources.Load<GameObject>("Prefabs/Spawners");
@@ -35,11 +39,6 @@ public class MobManager : MonoBehaviour {
         }
     }
 
-    public void SetSpawnPoints(List<Transform> spawnPoints)
-    {
-        this.spawnPoints = spawnPoints;
-    }
-
 	void Update () {
         timer += Time.deltaTime;
         if(timer >= 3.0f)
@@ -49,6 +48,7 @@ public class MobManager : MonoBehaviour {
                 var enemy2 = Instantiate<Enemy>(enemyPrefab);
                 enemy2.transform.position = t.position;
                 enemy2.SetPathToFollow(path);
+                enemy2.SetNextStrategyPeopleAttack(basementManager.GetNPCList);
             }
             timer -= 3.0f;
         }
