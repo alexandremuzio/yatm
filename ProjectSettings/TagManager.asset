@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - PlayerCollider
-  - EnemyCollider
-  - 
-  - 
+  - Floor
+  - Shootable
+  - LightMask
+  - Invisible
   - 
   - 
   - 
@@ -40,7 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: HUD
-    uniqueID: 984908061
     locked: 0
