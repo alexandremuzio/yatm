@@ -34,7 +34,8 @@ public class Enemy : MonoBehaviour
         if (!health.IsAlive())
         {
             //Create animation
-            Destroy(gameObject);
+            itemBag.Open(transform);
+            Destroy(gameObject);    
         }
     }
     void FixedUpdate()
@@ -86,10 +87,4 @@ public class Enemy : MonoBehaviour
     {
         attacker.Attack(coll);
     }
-
-    void OnDestroy()
-    {
-        itemBag.Open(transform);
-    }
-
 }

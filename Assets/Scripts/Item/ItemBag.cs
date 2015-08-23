@@ -6,6 +6,18 @@ using System;
 [Serializable]
 public class ItemBag {
 
+    class ItemItem
+    {
+        public string Name {get; private set;}
+        public Action<Player> Effect {get; private set;}
+
+        public ItemItem(string name, Action<Player> effect)
+        {
+            Name = name;
+            Effect = effect;
+        }
+    }
+    
     private static Dictionary<string, Action<Player>> PossibleItemActions = new Dictionary<string, Action<Player>>
     {
         {"SmallAmmo", (p) => p.Weapon.AddAmmo(5)},
@@ -14,7 +26,7 @@ public class ItemBag {
         {"SayMonster", (p) => p.SayName("I am the monster")},        
     };
 
-    private Dictionary<string, Action<Player>> itemActions = new Dictionary<string, Action<Player>>();
+    private List<ItemItem> itemActions = new List<ItemItem>();
 
     [SerializeField]
     List<string> possibleKeys;
@@ -35,7 +47,7 @@ public class ItemBag {
             int sel = rnd.Next(PossibleItemActions.Count);     
             possibleKeys = new List<string>(PossibleItemActions.Keys);
             var selectedKey = possibleKeys[sel];
-            itemActions.Add(selectedKey, PossibleItemActions[selectedKey]);
+            itemActions.Add(new ItemItem(selectedKey, PossibleItemActions[selectedKey]));
         }
         
     }
@@ -44,7 +56,7 @@ public class ItemBag {
     {
         foreach(var di in itemActions)
         {
-            Item.Create(di.Key, transform, di.Value);
+            Item.Create(di.Name, transform, di.Effect);
         }
     }
 }
