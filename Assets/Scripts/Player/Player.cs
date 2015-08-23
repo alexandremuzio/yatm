@@ -14,13 +14,11 @@ public abstract class Player : MonoBehaviour, IControllable
     [SerializeField]
     protected bool _isMonster = false;
 
-    public IWeapon Weapon { get; private set; }
+    public IWeapon Weapon { get; protected set; }
 
     protected void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-
-        Weapon = MachineGun.Create(this);
     }
 
     protected void FixedUpdate()

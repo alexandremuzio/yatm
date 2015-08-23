@@ -3,12 +3,14 @@ using System;
 
 public class NormalPlayer : Player
 {
-    private SelfAttacker attacker;
+    private SelfAttacker selfAttacker;
 
     new void Start()
     {
         base.Start();
-        attacker = new SelfAttacker(Time.time);
+
+        selfAttacker = new SelfAttacker(Time.time);
+        Weapon = MachineGun.Create(this);
     }
 
     new void FixedUpdate()
@@ -27,10 +29,10 @@ public class NormalPlayer : Player
     {
         if (state == GameState.Paused) return;
 
-        if (attacker.CanHurtSelf())
+        if (selfAttacker.CanHurtSelf())
         {
             Health health = gameObject.GetComponentInChildren<Health>();
-            health.Damage(attacker.Damage);
+            health.Damage(selfAttacker.Damage);
         }
     }
 

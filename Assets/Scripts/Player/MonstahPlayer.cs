@@ -4,10 +4,12 @@ using System;
 
 public class MonstahPlayer : Player
 {
+    public IWeapon ExtraWeapon { get; private set; }
 
     new void Start()
     {
         base.Start();
+        //ExtraWeapon = 
         //attacker = new SelfAttacker(Time.time);
     }
 
