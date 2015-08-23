@@ -35,8 +35,7 @@ public class ItemBag {
 
     private System.Random rnd;
 
-    [SerializeField]
-    private int maxSize = 5;
+    private int maxSize = 2;
 
     private int _size;
 
