@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: 9c19b5dcfdcabac43af4c410080fe8dc
-timeCreated: 1440275987
+<<<<<<< HEAD:Assets/Resources/Prefabs/HealthyEnemy.prefab.meta
+guid: 8fcf3022d4014194caa86438e7c37131
+timeCreated: 1440293125
+=======
+guid: c7d51a3ed4aaf864bac6098c6f3723ab
+timeCreated: 1440229527
+>>>>>>> 94441b8b3d6d5b804e00887e7e86da37fe7cc96b:Assets/testSceneMut.unity.meta
 licenseType: Free
 NativeFormatImporter:
   userData: 

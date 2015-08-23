@@ -8,13 +8,15 @@ namespace Assets.Scripts.Mob.Strategies
 {
     public class EnemyPathStrategy : IStrategy
     {
-        private const float NEXT_NODE_THRESHOLD = 3.0f;
+        private const float NEXT_NODE_THRESHOLD = 4.0f;
         Enemy enemy;
         List<Vector2> path;
         int node;
 
         Rigidbody2D rb2d;
 
+        public event EventHandler OnPathFinished;
+         
         public EnemyPathStrategy(Enemy enemy, List<Vector2> path)
         {
             this.enemy = enemy;
@@ -31,7 +33,15 @@ namespace Assets.Scripts.Mob.Strategies
                 node++;
                 if(node >= path.Count)
                 {
-                    node = 0;
+                    if(OnPathFinished != null)
+                    {
+                        OnPathFinished(this, null);
+                        return;
+                    }
+                    else
+                    {
+                        node = 0;
+                    }
                 }
                 moveToDir = ((Vector3)path[node] - enemy.transform.position);
             }

@@ -11,7 +11,18 @@ public class Enemy : MonoBehaviour
     private float rotateSpeed = 1200f;
 
     private IStrategy movementStrategy;
+    private IStrategy nextStrategy;
 
+
+    void Update()
+    {
+        Health health = gameObject.GetComponentInChildren<Health>();
+        if (!health.IsAlive())
+        {
+            //Create animation
+            Destroy(gameObject);
+        }
+    }
     void FixedUpdate()
     {
         if (movementStrategy != null)
@@ -27,7 +38,24 @@ public class Enemy : MonoBehaviour
 
     public void SetPathToFollow(List<Vector2> path)
     {
-        movementStrategy = new EnemyPathStrategy(this, path);
+        var strategy = new EnemyPathStrategy(this, path);
+        strategy.OnPathFinished += (object sender, EventArgs args) => {
+            if(nextStrategy != null)
+            {
+                movementStrategy = nextStrategy;
+                nextStrategy = null;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        };
+        movementStrategy = strategy;
+    }
+
+    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC)
+    {
+        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC);
     }
 
     public float GetSpeed()
