@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 454600}
   - 120: {fileID: 12002400}
-  - 114: {fileID: 11482198}
+  - 114: {fileID: 11445136}
   m_Layer: 0
   m_Name: RaycastBullet
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11482198
+--- !u!114 &11445136
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,10 +37,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 126486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414dd052e4e86724daeb2f7f5e942dfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 16d88cb7cd9dd1e4383842f75096e2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 2000
+  range: 1000
   effectsDisplayTime: .0500000007
   bulletDamage: 30
 --- !u!120 &12002400
