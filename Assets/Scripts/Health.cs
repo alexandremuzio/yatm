@@ -30,11 +30,17 @@ public class Health : MonoBehaviour {
     [SerializeField]
     private float offset = -300;
 
+    [SerializeField]
+    private bool isVisible = false;
+
 	void Start () 
     {
         currentHealth = maxHealth;
         healthBar = transform.Find("lifeBar").GetComponent<SpriteRenderer>();
-        healthImage = transform.Find("lifeImage").GetComponent<SpriteRenderer>();      
+        healthImage = transform.Find("lifeImage").GetComponent<SpriteRenderer>();
+
+        healthBar.enabled = isVisible;
+        healthImage.enabled = isVisible;
 	}
 	
 
@@ -43,6 +49,11 @@ public class Health : MonoBehaviour {
         if (transform.rotation != Quaternion.identity)
             transform.rotation = Quaternion.identity;
         transform.position = new Vector2(transform.parent.transform.position.x, transform.parent.transform.position.y + offset);
+
+        if(!isVisible)
+        {
+
+        }
 
         healthImage.transform.localScale = new Vector2(GetLifeRatio(), healthImage.transform.localScale.y);
 	}

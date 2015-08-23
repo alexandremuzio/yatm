@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    [SerializeField]
+    private ItemBag itemBag;
+
     private Attacker attacker;
 
     public event EventHandler DiedEvent;
@@ -22,14 +25,17 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         attacker = new Attacker(Time.time);
+        itemBag = new ItemBag();
     }
+
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
             //Create animation
-            Destroy(gameObject);
+            itemBag.Open(transform);
+            Destroy(gameObject);    
         }
     }
     void FixedUpdate()

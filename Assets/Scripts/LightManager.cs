@@ -17,7 +17,7 @@ public class LightManager : MonoBehaviour {
     }
 	void Start () {
 	    var lightPrefab = Resources.Load<Light>("Prefabs/DirectionalLight");
-        light = Instantiate<Light>(lightPrefab);
+        light = Instantiate(lightPrefab);
     }
 	
 	// Update is called once per frame
@@ -25,7 +25,6 @@ public class LightManager : MonoBehaviour {
         currentTime = Time.time;
         if (currentTime >= dayDuration) return;
 
-        Debug.Log(currentTime + "/" + dayDuration);
         light.transform.rotation = Quaternion.Euler(Vector3.Lerp(new Vector3(0, 0, 0),
                                                                  new Vector3(90, 0, 0),
                                                                  currentTime/dayDuration));

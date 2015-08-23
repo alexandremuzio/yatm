@@ -4,6 +4,20 @@ using System;
 
 public class Item : MonoBehaviour {
 
+    private static GameObject _parent;
+    private static GameObject parent
+    {
+        get
+        {
+            if (_parent == null)
+            {
+                _parent = new GameObject("ItemParent");
+            }
+            return _parent;
+        }
+    }
+    
+    
     public event Action<Player> itemAction;
 
     private Sprite itemSprite;
@@ -21,8 +35,10 @@ public class Item : MonoBehaviour {
 
     void Start()
     {
+        transform.parent = parent.transform;
         gameObject.AddComponent<SpriteRenderer>();
         gameObject.GetComponent<SpriteRenderer>().sprite = itemSprite;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
         gameObject.AddComponent<BoxCollider2D>();
         var bcoll = gameObject.GetComponent<BoxCollider2D>();
@@ -32,9 +48,11 @@ public class Item : MonoBehaviour {
         var rbody = gameObject.GetComponent<Rigidbody2D>();
 
         rbody.drag = startForceDrag;
+        rbody.gravityScale = 0;
 
-        System.Random rnd = new System.Random();
-        var force = new Vector2((float)rnd.NextDouble() - 0.5f, (float)rnd.NextDouble() - 0.5f).normalized * startForceIntensity;
+        var force = new Vector2(UnityEngine.Random.RandomRange(-1, 1),
+                                UnityEngine.Random.RandomRange(-1, 1)).normalized
+                                    * UnityEngine.Random.RandomRange(0, startForceIntensity);
         rbody.AddForce(force);    
 
     }
@@ -50,9 +68,7 @@ public class Item : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.tag + "Touched item");
         if (other.gameObject.tag != "Player") return;
-        Debug.Log("And it was a player!");
 
         var p = other.transform.parent.gameObject.GetComponent<Player>();
 

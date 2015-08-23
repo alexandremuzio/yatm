@@ -12,6 +12,9 @@ public class Player : MonoBehaviour, IControllable
     private Vector2 lookAtDir;
     private SelfAttacker attacker;
 
+    [SerializeField]
+    private bool _isMonster = false;
+
     public IWeapon Weapon { get; private set; }
 
     void Start()
@@ -80,11 +83,13 @@ public class Player : MonoBehaviour, IControllable
         }
     }
 
-    [SerializeField]
-    bool _isMonster = false;
-
-    internal bool IsMonster()
+    public bool IsMonster()
     {
         return _isMonster;
+    }
+
+    public void SayName(string name)
+    {
+        Debug.Log(name);
     }
 }

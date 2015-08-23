@@ -4,16 +4,12 @@ using XInputDotNetPure;
 using System;
 using Assets.Scripts;
 
-public class Spawner : MonoBehaviour {
-        
-    [SerializeField]
-    private Spawnable spawned;
-
+public class Spawner : MonoBehaviour
+{
     [SerializeField]
     private float spawnTime = 4;
 
     private Vector2 spawnPosition;
-
 
     private float timer = 0;
 
@@ -36,6 +32,6 @@ public class Spawner : MonoBehaviour {
  
     void Spawn()
     {
-        mobManager.Spawn(transform, spawned);
+        mobManager.Spawn(transform);
     }
 }

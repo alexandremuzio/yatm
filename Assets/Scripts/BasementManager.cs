@@ -15,11 +15,19 @@ public class BasementManager : MonoBehaviour
     List<NPC> npcs;
 
     NPC npcPrefab;
+    List<GameObject> npcBodiesPrefabList;
 
     void Start()
     {
         npcPrefab = Resources.Load<NPC>("Prefabs/NPC");
         var basementPrefab = Resources.Load<Basement>("Prefabs/Basement");
+
+        npcBodiesPrefabList = new List<GameObject>();
+
+        for (int i = 0; i < 12; i++)
+        {
+            npcBodiesPrefabList.Add(Resources.Load<GameObject>("Prefabs/NPC/NPCBody_" + i));
+        }
 
         basement = Instantiate<Basement>(basementPrefab);
 
@@ -53,6 +61,10 @@ public class BasementManager : MonoBehaviour
     {
         var npc = Instantiate<NPC>(npcPrefab);
         npc.transform.position = position;
+        var bodyIndex = UnityEngine.Random.Range(0, npcBodiesPrefabList.Count);
+        var body = Instantiate<GameObject>(npcBodiesPrefabList[bodyIndex]);
+        body.transform.parent = npc.transform;
+        body.transform.localPosition = Vector3.zero;
         npc.SetBasementToWanderAround(basement);
         npcs.Add(npc);
         npc.DiedEvent += OnDiedEvent;
