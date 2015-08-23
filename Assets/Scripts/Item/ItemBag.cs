@@ -6,6 +6,16 @@ using System;
 [Serializable]
 public class ItemBag {
 
+    private static Dictionary<string, Action<Player>> PossibleItemActions = new Dictionary<string, Action<Player>>
+    {
+        {"SmallAmmo", (p) => p.Weapon.AddAmmo(5)},
+        {"MediumAmmo", (p) => p.Weapon.AddAmmo(10)},
+        {"BigAmmo", (p) => p.Weapon.AddAmmo(20)},
+        {"SayMonster", (p) => p.SayName("I am the monster")},  
+        {"HealthPotion", (p) => p.gameObject.GetComponentInChildren<Health>().Damage(-20)},
+    };
+    
+    
     [Serializable]
     class ItemItem
     {
@@ -20,13 +30,7 @@ public class ItemBag {
         }
     }
     
-    private static Dictionary<string, Action<Player>> PossibleItemActions = new Dictionary<string, Action<Player>>
-    {
-        {"SmallAmmo", (p) => p.Weapon.AddAmmo(5)},
-        {"MediumAmmo", (p) => p.Weapon.AddAmmo(10)},
-        {"BigAmmo", (p) => p.Weapon.AddAmmo(20)},
-        {"SayMonster", (p) => p.SayName("I am the monster")},        
-    };
+
 
     [SerializeField]
     private List<ItemItem> itemActions = new List<ItemItem>();
