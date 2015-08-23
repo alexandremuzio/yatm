@@ -14,8 +14,8 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    [SerializeField]
     private ItemBag itemBag;
-
 
     private Attacker attacker;
 

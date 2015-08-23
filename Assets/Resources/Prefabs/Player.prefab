@@ -93,7 +93,7 @@ GameObject:
   - 61: {fileID: 6185514}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +177,6 @@ Transform:
   m_RootOrder: 0
 --- !u!50 &5062706
 Rigidbody2D:
-  serializedVersion: 2
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -186,11 +185,11 @@ Rigidbody2D:
   m_LinearDrag: 5
   m_AngularDrag: 0
   m_GravityScale: 0
+  m_FixedAngle: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!61 &6162156
 BoxCollider2D:
   m_ObjectHideFlags: 1

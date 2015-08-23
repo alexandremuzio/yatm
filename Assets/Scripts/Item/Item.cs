@@ -66,6 +66,7 @@ public class Item : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Collided with something");
         if (other.gameObject.tag != "Player") return;
         Debug.Log("And it was a player!");
 
