@@ -1,30 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
 using XInputDotNetPure;
+using System;
+using Assets.Scripts;
 
 public class Spawner : MonoBehaviour {
-
+        
     [SerializeField]
     private Spawnable spawned;
 
+    [SerializeField]
+    private float spawnTime = 4;
+
     private Vector2 spawnPosition;
 
+
+    private float timer = 0;
+
+    private MobManager mobManager;
+    
     void Start()
     {
-        spawned.Spawn(transform.position);
+        mobManager = GameObject.Find("Managers").GetComponent<MobManager>();
     }
-    
 
-    [ContextMenu("Stop!")]
-    void StopVibrate()
+    void Update()
     {
-        GamePad.SetVibration(0, 0f, 0f);
-    }
-
-    [ContextMenu("Super Vibrate!")]
-    IEnumerator SVibrate()
+        timer += Time.deltaTime;
+        if(timer >= spawnTime)
+        {
+            Spawn();
+            timer -= spawnTime;
+        }
+    }   
+ 
+    void Spawn()
     {
-        yield return StartCoroutine("VibrationRoutine");
+        mobManager.Spawn(transform, spawned);
     }
-
 }

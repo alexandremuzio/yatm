@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿
 
 public interface IStrategy
 {

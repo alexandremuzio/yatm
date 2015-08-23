@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
+
 
 public class Health : MonoBehaviour {
  
@@ -20,15 +19,17 @@ public class Health : MonoBehaviour {
         return currentHealth / maxHealth;
     }
 
+    public bool IsAlive()
+    {
+        return currentHealth > 0;
+    }
+
     private SpriteRenderer healthImage;
     private SpriteRenderer healthBar;
 
     [SerializeField]
     private float offset = -300;
 
-
-
-	// Use this for initialization
 	void Start () 
     {
         currentHealth = maxHealth;
@@ -36,7 +37,7 @@ public class Health : MonoBehaviour {
         healthImage = transform.Find("lifeImage").GetComponent<SpriteRenderer>();      
 	}
 	
-	// Update is called once per frame
+
 	void Update () 
     {
         if (transform.rotation != Quaternion.identity)

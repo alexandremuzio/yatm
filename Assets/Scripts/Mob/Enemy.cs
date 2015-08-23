@@ -13,6 +13,16 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+
+    void Update()
+    {
+        Health health = gameObject.GetComponentInChildren<Health>();
+        if (!health.IsAlive())
+        {
+            //Create animation
+            Destroy(gameObject);
+        }
+    }
     void FixedUpdate()
     {
         if (movementStrategy != null)
@@ -29,6 +39,7 @@ public class Enemy : MonoBehaviour
     public void SetPathToFollow(List<Vector2> path)
     {
         var strategy = new EnemyPathStrategy(this, path);
+        Debug.Log(path.Count.ToString());
         strategy.OnPathFinished += (object sender, EventArgs args) => {
             if(nextStrategy != null)
             {

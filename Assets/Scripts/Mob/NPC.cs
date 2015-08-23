@@ -9,6 +9,16 @@ public class NPC : MonoBehaviour
 
     private IStrategy movementStrategy;
 
+    void Update()
+    {
+        Health health = gameObject.GetComponentInChildren<Health>();
+        if (!health.IsAlive())
+        {
+            //Create animation
+            Destroy(gameObject);
+        }
+    }
+
     void FixedUpdate()
     {
         if (movementStrategy != null)
