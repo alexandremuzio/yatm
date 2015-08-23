@@ -12,13 +12,20 @@ public class MobManager : MonoBehaviour {
     Enemy enemyPrefab;
     GameObject pathPrefab;
     GameObject spawnersPrefab;
-
+    List<GameObject> enemyBodiesPrefabList;
     BasementManager basementManager;
 
     // Use this for initialization
-    void Start () {
-
+    void Start ()
+    { 
         basementManager = GetComponent<BasementManager>();
+
+        enemyBodiesPrefabList = new List<GameObject>();
+
+        for(int i = 0; i < 10; i++)
+        {
+            enemyBodiesPrefabList.Add(Resources.Load<GameObject>("Prefabs/Enemies/EnemyBody_" + i));
+        }
 
         enemyPrefab = Resources.Load<Enemy>("Prefabs/Enemy");
         pathPrefab = Resources.Load<GameObject>("Prefabs/Path0");
@@ -40,14 +47,14 @@ public class MobManager : MonoBehaviour {
         }
     }
 
-    public void Spawn(Transform t, Spawnable s)
+    public void Spawn(Transform t)
     {
-        Enemy e = s.Spawn(t.position).GetComponent<Enemy>();
-        if (e == null)
-        {
-            Debug.Log("Could not find component of type enemy");
-            return;
-        }
+        Enemy e = Instantiate<Enemy>(enemyPrefab);
+        e.transform.position = t.position;
+        var bodyIndex = Random.Range(0, enemyBodiesPrefabList.Count);
+        var body = Instantiate<GameObject>(enemyBodiesPrefabList[bodyIndex]);
+        body.transform.parent = e.transform;
+        body.transform.localPosition = body.transform.Find("RotationCenter").transform.position * (-1);
         
         e.SetPathToFollow(path);
         e.SetNextStrategyPeopleAttack(basementManager.GetNPCList);
