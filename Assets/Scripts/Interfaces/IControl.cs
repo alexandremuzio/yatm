@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
 public interface IControl
 {
-    void Update();
+    event EventHandler PauseRequestEvent;
+    void Update(GameState state);
     void SetControllable(IControllable controllable);
 }

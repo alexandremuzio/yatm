@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    public event EventHandler DiedEvent;
 
     void Update()
     {

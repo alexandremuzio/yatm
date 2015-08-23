@@ -385,7 +385,7 @@ InputManager:
     dead: 0
     sensitivity: 1
     snap: 0
-    invert: 0
+    invert: 1
     type: 2
     axis: 1
     joyNum: 2
@@ -434,8 +434,8 @@ InputManager:
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 0
+    type: 2
+    axis: 9
     joyNum: 1
   - serializedVersion: 3
     m_Name: Joystick2Fire0
@@ -450,8 +450,8 @@ InputManager:
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 1
+    type: 2
+    axis: 9
     joyNum: 2
   - serializedVersion: 3
     m_Name: Joystick3Fire0
@@ -466,8 +466,8 @@ InputManager:
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 1
+    type: 2
+    axis: 9
     joyNum: 3
   - serializedVersion: 3
     m_Name: Joystick4Fire0
@@ -482,8 +482,8 @@ InputManager:
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 1
+    type: 2
+    axis: 9
     joyNum: 4
   - serializedVersion: 3
     m_Name: Joystick1AimXAxis
@@ -613,3 +613,19 @@ InputManager:
     type: 2
     axis: 3
     joyNum: 4
+  - serializedVersion: 3
+    m_Name: Start
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: p
+    altNegativeButton: 
+    altPositiveButton: joystick button 7
+    gravity: 0
+    dead: 0
+    sensitivity: 1
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
