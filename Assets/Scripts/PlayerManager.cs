@@ -12,7 +12,7 @@ class PlayerManager : MonoBehaviour
 
     void Awake()
     {
-        playerPrefab = Resources.Load<Player>("Prefabs/Player");
+        playerPrefab = Resources.Load<Player>("Prefabs/MonstahPlayer");
 
         startPositionList = new List<Transform>();
         players = new List<Player>();

@@ -21,8 +21,22 @@ public class Enemy : MonoBehaviour
 
     public event EventHandler DiedEvent;
 
+    private static GameObject _parent;
+    private static GameObject parent
+    {
+        get
+        {
+            if (_parent == null)
+            {
+                _parent = new GameObject("EnemyParent");
+            }
+            return _parent;
+        }
+    }
+
     void Start()
     {
+        transform.parent = parent.transform;
         attacker = new Attacker(Time.time);
         itemBag = new ItemBag();
     }
