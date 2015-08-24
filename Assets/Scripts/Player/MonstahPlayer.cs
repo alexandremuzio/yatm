@@ -6,6 +6,17 @@ public class MonstahPlayer : Player
 {
     public IWeapon ExtraWeapon { get; private set; }
 
+
+    public static MonstahPlayer Create(Vector3 initialPos)
+    {
+        var playerPrefab = Resources.Load<MonstahPlayer>("Prefabs/MonstahPlayer");
+
+        var player = Instantiate<MonstahPlayer>(playerPrefab);
+        player.transform.position = initialPos;
+
+        player._isMonster = true;
+        return player;
+    }
     new void Start()
     {
         base.Start();
