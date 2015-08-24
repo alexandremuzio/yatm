@@ -12,6 +12,8 @@ class MachineGun : MonoBehaviour, IWeapon
     [SerializeField]
     private int _ammo;
 
+    AudioSource gunAudio;
+
     public static MachineGun Create(Player player)
     {
         GameObject gunObject = player.transform.FindChild("GunPosition").gameObject;
@@ -23,6 +25,7 @@ class MachineGun : MonoBehaviour, IWeapon
 
     void Start()
     {
+        gunAudio = gameObject.GetComponent<AudioSource>();
         _ammo = maxAmmo;
     }
 
@@ -46,6 +49,7 @@ class MachineGun : MonoBehaviour, IWeapon
         RaycastBullet.Create(transform.position, new Vector2((float)Mathf.Cos((transform.rotation.eulerAngles.z + 90) * Mathf.PI / 180),
                                                     (float)Mathf.Sin((transform.rotation.eulerAngles.z + 90) * Mathf.PI / 180)));
 
+        gunAudio.Play();
         _ammo -= 1;
         timer = 0.0f;
     }

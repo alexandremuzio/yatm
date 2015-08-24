@@ -5,7 +5,9 @@ public class NormalPlayer : Player
 {
     private SelfAttacker selfAttacker;
 
-    new void Start()
+    AudioSource gunAudio;
+
+    new void Start()    
     {
         base.Start();
 
