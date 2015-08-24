@@ -5,10 +5,25 @@ public class NormalPlayer : Player
 {
     private SelfAttacker selfAttacker;
 
+    AudioSource gunAudio;
+
+    public static NormalPlayer Create(Vector3 initialPos, bool isMonster)
+    {
+        var playerPrefab = Resources.Load<NormalPlayer>("Prefabs/Player");
+
+        var player = Instantiate<NormalPlayer>(playerPrefab);
+        player.transform.position = initialPos;
+
+        player._isMonster = isMonster;
+
+        return player;
+    }
+
     new void Start()
     {
         base.Start();
 
+        gunAudio = gameObject.GetComponent<AudioSource>();
         selfAttacker = new SelfAttacker(Time.time);
         Weapon = MachineGun.Create(this);
         //Weapon = FireballCaster.Create(this);

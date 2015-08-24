@@ -25,10 +25,9 @@ class PlayerManager : MonoBehaviour
         }
     }
 
-    public Player CreatePlayer()
+    public Player CreatePlayer(bool isMonster)
     {
-        var player = Instantiate<Player>(playerPrefab);
-        player.transform.position = startPositionList[players.Count].position;
+        var player = NormalPlayer.Create(startPositionList[players.Count].position, isMonster);
         players.Add(player);
 
         return player;
