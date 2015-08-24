@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21292322}
   - 61: {fileID: 6196318}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ScythePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,21 +101,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &155422
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 475410}
-  m_Layer: 0
-  m_Name: ScythePosition
-  m_TagString: Untagged
-  m_Icon: {fileID: 1638116407661442457, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &192412
 GameObject:
   m_ObjectHideFlags: 1
@@ -154,10 +139,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 115162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 114, z: 0}
+  m_LocalPosition: {x: 7, y: 163, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 475410}
+  m_Father: {fileID: 417296}
   m_RootOrder: 0
 --- !u!4 &417296
 Transform:
@@ -169,7 +154,7 @@ Transform:
   m_LocalPosition: {x: 84, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 475410}
+  - {fileID: 407708}
   m_Father: {fileID: 476864}
   m_RootOrder: 3
 --- !u!4 &421618
@@ -220,19 +205,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 476864}
   m_RootOrder: 2
---- !u!4 &475410
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155422}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 407708}
-  m_Father: {fileID: 417296}
-  m_RootOrder: 0
 --- !u!4 &476864
 Transform:
   m_ObjectHideFlags: 1
@@ -325,7 +297,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 115162}
   m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: -84.3914795, y: 98.1811523}
   serializedVersion: 2
