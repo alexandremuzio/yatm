@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public enum GameState
 {
@@ -133,6 +134,7 @@ public class GameManager : MonoBehaviour {
             case GameState.FirstPhase:
                 if (Time.time > firstPhaseLength)
                 {
+                    StartCoroutine("ShowText");
                     ChangeState(GameState.SecondPhase);
                 }
                 break;
@@ -140,6 +142,7 @@ public class GameManager : MonoBehaviour {
             case GameState.SecondPhase:
                 if (Time.time > secondPhaseLength)
                 {
+                    
                     ChangeState(GameState.Ended);
                 }
                 break;
@@ -153,4 +156,18 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    IEnumerator ShowText()
+    {
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahTimeText");
+        GameObject go = Instantiate(prefab);
+        yield return new WaitForSeconds(2.0f);
+
+        StartCoroutine("Fade", go);
+    }
+
+    IEnumerator Fade(GameObject go)
+    {
+        yield return new WaitForSeconds(3.0f);
+        Destroy(go);
+    }
 }
