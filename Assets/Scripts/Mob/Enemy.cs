@@ -14,12 +14,19 @@ public class Enemy : MonoBehaviour
     private IStrategy movementStrategy;
     private IStrategy nextStrategy;
 
+    private const float MAX_BARK_TIME = 45f;
+    private const float MIN_BARK_TIME = 15f;
+    private float barkDelay = 0f;
+    private float lastBarkTimer = 0f;
+
     [SerializeField]
     private ItemBag itemBag;
 
     private Attacker attacker;
 
     public event EventHandler DiedEvent;
+
+    AudioSource[] zombieAudios;
 
     private static GameObject _parent;
     private static GameObject parent
@@ -36,13 +43,28 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        zombieAudios = gameObject.GetComponents<AudioSource>();
+
         transform.parent = parent.transform;
         attacker = new Attacker(Time.time);
         itemBag = new ItemBag();
+        lastBarkTimer = UnityEngine.Random.Range(MIN_BARK_TIME, MAX_BARK_TIME);
     }
 
     void Update()
     {
+        if (Time.time - lastBarkTimer > barkDelay)
+        {
+            if(zombieAudios.Length > 0)
+            {
+                var i = UnityEngine.Random.Range(0, zombieAudios.Length);
+                zombieAudios[i].pitch = UnityEngine.Random.Range(0.95f, 1.05f);
+                zombieAudios[i].Play();
+            }
+            barkDelay = UnityEngine.Random.Range(MIN_BARK_TIME, MAX_BARK_TIME);
+            lastBarkTimer = Time.time;
+        }
+
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
