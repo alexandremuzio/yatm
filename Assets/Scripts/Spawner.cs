@@ -7,7 +7,7 @@ using Assets.Scripts;
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    private float spawnTime = 4;
+    private float spawnTime = 7;
     private float lastSpawnTime;
 
     private MobManager mobManager;
