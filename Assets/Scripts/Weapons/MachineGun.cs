@@ -10,8 +10,10 @@ class MachineGun : MonoBehaviour, IWeapon
     [SerializeField]
     private int maxAmmo = 20;
 
-    [SerializeField]
     private int _ammo;
+
+    [SerializeField]
+    private float emptyRange = 25;
 
     AudioSource gunAudio;
     AudioSource gunEmptyAudio;
@@ -39,6 +41,9 @@ class MachineGun : MonoBehaviour, IWeapon
 
         if (_ammo <= 0)
         {
+            RaycastBullet.Create(transform.position, new Vector2((float)Mathf.Cos((transform.rotation.eulerAngles.z + 90) * Mathf.PI / 180),
+                                                    (float)Mathf.Sin((transform.rotation.eulerAngles.z + 90) * Mathf.PI / 180)), emptyRange);
+
             gunEmptyAudio.Play();
             lastBulletTimer = Time.time;
             return;
@@ -58,6 +63,7 @@ class MachineGun : MonoBehaviour, IWeapon
  	    _ammo += ammo;
         if(_ammo > maxAmmo)
         {
+            maxAmmo = _ammo;
             _ammo = maxAmmo;
         }
     }

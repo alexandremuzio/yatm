@@ -82,5 +82,10 @@ class XBoxJoystickControl : IControl
             }
             
         }
+
+        if(Input.GetButton("Joystick" + index + "Fire2"))
+        {
+            controllable.ActionFire2(state);            
+        }
     }
 }

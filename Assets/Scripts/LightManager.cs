@@ -23,6 +23,13 @@ public class LightManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         currentTime = Time.time;
+
+        if (gameManager.state == GameState.SecondPhase)
+        {
+            light.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            return;
+        }
+
         if (currentTime >= dayDuration) return;
 
         light.transform.rotation = Quaternion.Euler(Vector3.Lerp(new Vector3(10, 0, 0),

@@ -4,19 +4,31 @@
 public class Health : MonoBehaviour {
  
     [SerializeField]
-    private float maxHealth = 100;
+    private float _maxHealth = 100;
+
+    public float InitialHealth = 0;
+    public void SetMaxHealth(float maxHealth)
+    {
+        _maxHealth = maxHealth;
+    }
+
     private float currentHealth;
+
+    public void SetCurrentHealth(float value)
+    {
+        currentHealth = value;
+    }
     public float GetLifeRatio()
     {
         if (currentHealth < 0)
         {
             currentHealth = 0;
         }
-        if (currentHealth > maxHealth)
+        if (currentHealth > _maxHealth)
         {
-            currentHealth = maxHealth;
+            currentHealth = _maxHealth;
         }
-        return currentHealth / maxHealth;
+        return currentHealth / _maxHealth;
     }
 
     public bool IsAlive()
@@ -35,7 +47,11 @@ public class Health : MonoBehaviour {
 
 	void Start () 
     {
-        currentHealth = maxHealth;
+        if (InitialHealth == 0)
+            currentHealth = _maxHealth;
+        else
+            currentHealth = InitialHealth;
+
         healthBar = transform.Find("lifeBar").GetComponent<SpriteRenderer>();
         healthImage = transform.Find("lifeImage").GetComponent<SpriteRenderer>();
 

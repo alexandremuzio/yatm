@@ -7,12 +7,15 @@ class RaycastBullet : MonoBehaviour
     public float range = 1000f;
     public float effectsDisplayTime = 0.05f;
 
-    public float bulletDamage = 30;
+    public float bulletDamage = 25;
+    public float damageLoss = 0.4f;
     Vector2 direction;
 
     LineRenderer gunLine;
 
-    public static RaycastBullet Create(Vector2 initialPos, Vector2 initialDirection)
+    float maxRange;
+
+    public static RaycastBullet Create(Vector2 initialPos, Vector2 initialDirection, float range = 1000)
     {
         var raycastPrefab = Resources.Load<RaycastBullet>("Prefabs/RaycastBullet");
         RaycastBullet bullet = Instantiate(raycastPrefab);
@@ -25,16 +28,26 @@ class RaycastBullet : MonoBehaviour
         bullet.gunLine.SetWidth(10f, 10f);
         bullet.gunLine.transform.position += new Vector3(0, 0, -2);
 
+        bullet.range = range;
+
         return bullet;
     }
 
     void Start()
     {
         float distanceToTarget = 0;
-
+        var hitDamage = bulletDamage;
         //Debug.DrawRay(transform.position, 1000*direction, Color.red);
+        RaycastHit2D hit;
+        if (range >= 1000)
+            hit = Physics2D.Raycast(transform.position, direction);
+        else
+        {
+            hit = Physics2D.Raycast(transform.position, direction, range);
+            hitDamage *= damageLoss; 
+        }
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction);
+
 
         gunLine.SetPosition(0, transform.position);
         
@@ -52,7 +65,7 @@ class RaycastBullet : MonoBehaviour
 
             if (health != null)
             {
-                health.Damage(bulletDamage);
+                health.Damage(hitDamage);
             }
 
         }

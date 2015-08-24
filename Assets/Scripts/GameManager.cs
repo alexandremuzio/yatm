@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     private Player playerPrefab;
     private float unpauseTime;
     private float startTime;
+    private float timer;
 
     public float firstPhaseLength = 10f; //in seconds;
     public float secondPhaseLength = 20f;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour {
 
     public event EventHandler<GameStateChangedEventArgs> GameStateChangedEvent;
 
-    AudioSource screamAudio;
+    public AudioSource screamAudio;
 
     void Awake()
     {
@@ -157,13 +158,19 @@ public class GameManager : MonoBehaviour {
         return Time.time - startTime;
     }
 
-    private void ChangeState(GameState newState)
+    public void ChangeState(GameState newState)
     {
         this.state = newState;
         if(GameStateChangedEvent != null)
         {
             GameStateChangedEvent(this, new GameStateChangedEventArgs(newState));
+            timer = 0;
         }
+    }
+
+    void FixedUpdate()
+    {
+        timer += Time.deltaTime;
     }
 
     void Update()
@@ -178,34 +185,40 @@ public class GameManager : MonoBehaviour {
         switch (state)
         {
             case GameState.FirstPhase:
-
-                if (Time.time > firstPhaseLength)
+                if (timer > firstPhaseLength)
                 {
-                    StartCoroutine("ShowMonstahTime");
-                    TransformPlayerIntoMonster();
-                    screamAudio.Play();
-                    ChangeState(GameState.SecondPhase);
+                    MonstahTime();
                 }
                 break;
 
             case GameState.SecondPhase:
-                if (Time.time > secondPhaseLength)
+                if (timer > secondPhaseLength)
                 {
                     ChangeState(GameState.Ended);
                 }
                 break;
 
             case GameState.Ended:
-                if (Time.time > endedPhaseLength)
+                if (timer > endedPhaseLength)
                 {
+                    
                     //ending conditions here
-                    StartCoroutine("ShowEndTransition");
+                    //StartCoroutine(ShowEndTransition());
+                    Application.LoadLevel(0);
                 }
                 break;
         }
     }
 
-    void TransformPlayerIntoMonster()
+    public void MonstahTime()
+    {
+        StartCoroutine("ShowMonstahTime");
+        TransformPlayerIntoMonster();
+        screamAudio.Play();
+        ChangeState(GameState.SecondPhase);
+    }
+
+    public void TransformPlayerIntoMonster()
     {
         var players = playerManager.GetPlayerList();
         for (int i = 0; i < players.Count; i++)
@@ -215,10 +228,10 @@ public class GameManager : MonoBehaviour {
 
             var initialPos = player.transform.position;
 
+            monsterControl.SetControllable(MonstahPlayer.Create(initialPos, player));
+
             players.Remove(player);
             Destroy(player.gameObject);
-
-            monsterControl.SetControllable(MonstahPlayer.Create(initialPos));
             return;
         }
     }
@@ -234,7 +247,7 @@ public class GameManager : MonoBehaviour {
         StartCoroutine("Fade", go);
     }
 
-    IEnumerator ShowMonstahTime()
+    public IEnumerator ShowMonstahTime()
     {
         var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahTimeText");
         GameObject go = Instantiate(prefab);

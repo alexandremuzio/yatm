@@ -11,7 +11,6 @@ public class ItemBag {
         {"SmallAmmo", (p) => p.Weapon.AddAmmo(5)},
         {"MediumAmmo", (p) => p.Weapon.AddAmmo(10)},
         {"BigAmmo", (p) => p.Weapon.AddAmmo(20)},
-        {"SayMonster", (p) => p.SayName("I am the monster")},  
         {"HealthPotion", (p) => p.gameObject.GetComponentInChildren<Health>().Damage(-20)},
     };
     

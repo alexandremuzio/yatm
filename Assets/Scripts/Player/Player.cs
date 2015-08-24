@@ -17,10 +17,17 @@ public abstract class Player : MonoBehaviour, IControllable
     [SerializeField]
     protected bool _isMonster = false;
 
+    private float startingTime;
+
+    public float TimeAlive()
+    {
+        return Time.time - startingTime;
+    }
 
     protected void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        startingTime = Time.time;
     }
 
     protected void Update()
@@ -92,5 +99,21 @@ public abstract class Player : MonoBehaviour, IControllable
     public void SayName(string name)
     {
         Debug.Log(name);
+    }
+
+
+    public void ActionFire2(GameState state)
+    {
+        
+        GameManager gm = GameObject.Find("Managers").GetComponent<GameManager>();
+
+        if (state != GameState.FirstPhase) return;
+        if (!IsMonster())
+        {
+            Debug.Log("Player that pressed control is not the monster");
+            return;
+        }
+
+        gm.MonstahTime();
     }
 }

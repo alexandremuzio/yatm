@@ -46,6 +46,10 @@ class Fireball : MonoBehaviour
     void OnTriggerEnter2D (Collider2D other)
     {
         if (other.gameObject.transform.parent.gameObject.name.Contains("MonstahPlayer")) return;
+        if (other.gameObject.transform.parent.transform.parent)
+            if (other.gameObject.transform.parent.transform.parent.gameObject.name.Contains("MonstahPlayer"))
+                return;
+
 
         Debug.Log(other.name);
         Debug.Log(other.transform.parent.name);

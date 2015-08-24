@@ -6,4 +6,5 @@ public interface IControllable
     void LookAtDir(Vector2 dir);
     void ActionFire0(GameState state);
     void ActionFire1(GameState state);
+    void ActionFire2(GameState state);
 }

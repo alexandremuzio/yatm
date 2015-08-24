@@ -5,18 +5,28 @@ using System;
 public class MonstahPlayer : Player
 {
     Animator anim;
+
+    [SerializeField]
+    private static float defaultMaxHealth = 300;
     
     public IWeapon ExtraWeapon { get; private set; }
 
-    public static MonstahPlayer Create(Vector3 initialPos)
+    [SerializeField]
+    private static float timeAliveConstant = 0.3f;
+
+    public static MonstahPlayer Create(Vector3 initialPos, Player player)
     {
         var playerPrefab = Resources.Load<MonstahPlayer>("Prefabs/MonstahPlayer");
 
-        var player = Instantiate<MonstahPlayer>(playerPrefab);
-        player.transform.position = initialPos;
+        var mPlayer = Instantiate<MonstahPlayer>(playerPrefab);
+        mPlayer.transform.position = initialPos;
 
-        player._isMonster = true;
-        return player;
+        mPlayer.GetComponentInChildren<Health>().SetMaxHealth(defaultMaxHealth * (player.TimeAlive() * timeAliveConstant));
+        mPlayer.GetComponentInChildren<Health>().InitialHealth = (defaultMaxHealth * (player.TimeAlive() * timeAliveConstant) * player.GetComponentInChildren<Health>().GetLifeRatio());
+
+
+        mPlayer._isMonster = true;
+        return mPlayer;
     }
     new void Start()
     {
