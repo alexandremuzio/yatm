@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 1000
-  playerSpeed: 5
+  playerSpeed: 650
   _isMonster: 0
 --- !u!114 &11436370
 MonoBehaviour:
@@ -336,7 +336,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playerSpeed
-      value: 500
+      value: 650
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Constraints
