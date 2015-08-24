@@ -10,12 +10,12 @@ public class MonstahPlayer : Player
 
     new void Start()
     {
+        _isMonster = true;
         anim = GetComponent<Animator>();
         ExtraWeapon = Scythe.Create(this);
+        Weapon = FireballCaster.Create(this);
 
         base.Start();
-        //ExtraWeapon = 
-        //attacker = new SelfAttacker(Time.time);
     }
 
     new void FixedUpdate()
