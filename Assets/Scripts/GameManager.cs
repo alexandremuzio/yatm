@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Collections;
+using XInputDotNetPure;
 
 using Random = UnityEngine.Random;
 
@@ -102,7 +103,16 @@ public class GameManager : MonoBehaviour {
                 if (player != null)
                 {
                     if (i == monsterIndex)
+                    {
                         monsterControl = control;
+                        StartCoroutine(Vibrator.BadVibrations((PlayerIndex)i));
+                    }
+
+                    else
+                    {
+                        StartCoroutine(Vibrator.GoodVibrations((PlayerIndex)i));
+                    }
+                        
 
                     control.SetControllable(player);
                     controllers.Add(control);
