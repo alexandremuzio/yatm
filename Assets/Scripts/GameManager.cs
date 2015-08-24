@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour {
                 if (Time.time > endedPhaseLength)
                 {
                     //ending conditions here
+                    StartCoroutine("ShowEndTransition");
                 }
                 break;
         }
@@ -250,10 +251,9 @@ public class GameManager : MonoBehaviour {
         StartCoroutine("Fade", go);
     }
 
-    //IEnumerator ShowMonstahWins()
+    //IEnumerator ShowEndTransition()
     //{
-    //    var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahWins");
-    //    GameObject go = Instantiate(prefab);
+    //    GameObject go = GameObject.Find("transition");
     //    yield return new WaitForSeconds(5.0f);
 
     //    StartCoroutine("Fade", go);

@@ -25,7 +25,7 @@ public class LightManager : MonoBehaviour {
         currentTime = Time.time;
         if (currentTime >= dayDuration) return;
 
-        light.transform.rotation = Quaternion.Euler(Vector3.Lerp(new Vector3(0, 0, 0),
+        light.transform.rotation = Quaternion.Euler(Vector3.Lerp(new Vector3(10, 0, 0),
                                                                  new Vector3(90, 0, 0),
                                                                  currentTime/dayDuration));
     }
