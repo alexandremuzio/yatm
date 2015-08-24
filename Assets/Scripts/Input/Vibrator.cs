@@ -2,29 +2,47 @@
 using System.Collections;
 using XInputDotNetPure;
 
-public class Vibrator1 : MonoBehaviour {
+public class Vibrator : MonoBehaviour {
 
-    IEnumerator WaitAndPrint()
+    IEnumerator GoodVibrations(PlayerIndex num)
     {
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 0.33f, 0.33f);
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 0f, 0f);
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 0.67f, 0.67f);
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 0f, 0f);
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 1f, 1f);
-        yield return new WaitForSeconds(1);
-        GamePad.SetVibration(0, 0f, 0f);
+        GamePad.SetVibration(num, 0.1f, 0.1f);
+        yield return new WaitForSeconds(5);
+        GamePad.SetVibration(num, 0f, 0f);
     }
-    IEnumerator Start()
+
+    IEnumerator BadVibrations(PlayerIndex num)
+    {
+        
+        GamePad.SetVibration(num, 0f, 0f);
+        yield return new WaitForSeconds(5);
+        GamePad.SetVibration(num, 0f, 0f);
+    }
+
+    
+    [ContextMenu("Vibrate All")]
+    void Vibes()
     {
         print("Starting " + Time.time);
+        int a = UnityEngine.Random.RandomRange(0, 3);
+        if (a == 0) StartCoroutine(BadVibrations(PlayerIndex.One));
+        else StartCoroutine(GoodVibrations(PlayerIndex.One));
+        if (a == 1) StartCoroutine(BadVibrations(PlayerIndex.Two));
+        else StartCoroutine(GoodVibrations(PlayerIndex.Two));
+        if (a == 2) StartCoroutine(BadVibrations(PlayerIndex.Three));
+        else StartCoroutine(GoodVibrations(PlayerIndex.Three));
+    }
 
-        // Start function WaitAndPrint as a coroutine
-        yield return StartCoroutine("WaitAndPrint");
-        print("Done " + Time.time);
+
+    void Start()
+    {
+        print("Starting " + Time.time);
+        int a = UnityEngine.Random.RandomRange(0, 3);
+        if(a == 0) StartCoroutine(BadVibrations(PlayerIndex.One));
+        else StartCoroutine(GoodVibrations(PlayerIndex.One));
+        if (a == 1) StartCoroutine(BadVibrations(PlayerIndex.Two));
+        else StartCoroutine(GoodVibrations(PlayerIndex.Two));
+        if (a == 2) StartCoroutine(BadVibrations(PlayerIndex.Three));
+        else StartCoroutine(GoodVibrations(PlayerIndex.Three));
     }
 }
