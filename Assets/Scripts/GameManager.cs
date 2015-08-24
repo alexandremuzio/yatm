@@ -116,6 +116,7 @@ public class GameManager : MonoBehaviour {
         }
 
         ChangeState(GameState.FirstPhase);
+        StartCoroutine("ShowStart");
         startTime = Time.time;
     }
 
@@ -167,6 +168,7 @@ public class GameManager : MonoBehaviour {
         switch (state)
         {
             case GameState.FirstPhase:
+
                 if (Time.time > firstPhaseLength)
                 {
                     StartCoroutine("ShowMonstahTime");
@@ -212,6 +214,15 @@ public class GameManager : MonoBehaviour {
 
 
     //ui related
+    IEnumerator ShowStart()
+    {
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/fearText");
+        GameObject go = Instantiate(prefab);
+        yield return new WaitForSeconds(4.0f);
+
+        StartCoroutine("Fade", go);
+    }
+
     IEnumerator ShowMonstahTime()
     {
         var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahTimeText");
@@ -223,21 +234,30 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator ShowPlayersWin()
     {
-        var prefab = Resources.Load<GameObject>("Prefabs/HUD/PlayersWinText");
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/PlayersWin");
         GameObject go = Instantiate(prefab);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(5.0f);
 
         StartCoroutine("Fade", go);
     }
 
     IEnumerator ShowMonstahWins()
     {
-        var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahWinsText");
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahWins");
         GameObject go = Instantiate(prefab);
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(5.0f);
 
         StartCoroutine("Fade", go);
     }
+
+    //IEnumerator ShowMonstahWins()
+    //{
+    //    var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahWins");
+    //    GameObject go = Instantiate(prefab);
+    //    yield return new WaitForSeconds(5.0f);
+
+    //    StartCoroutine("Fade", go);
+    //}
 
     IEnumerator Fade(GameObject go)
     {
