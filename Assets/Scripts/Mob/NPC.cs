@@ -11,6 +11,24 @@ public class NPC : MonoBehaviour
 
     public event EventHandler DiedEvent;
 
+    private static GameObject _parent;
+    private static GameObject parent
+    {
+        get
+        {
+            if (_parent == null)
+            {
+                _parent = new GameObject("NPCParent");
+            }
+            return _parent;
+        }
+    }
+
+    void Start()
+    {
+        transform.parent = parent.transform;
+    }
+
     void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();

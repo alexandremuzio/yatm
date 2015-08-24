@@ -28,9 +28,24 @@ public class Enemy : MonoBehaviour
 
     AudioSource[] zombieAudios;
 
+    private static GameObject _parent;
+    private static GameObject parent
+    {
+        get
+        {
+            if (_parent == null)
+            {
+                _parent = new GameObject("EnemyParent");
+            }
+            return _parent;
+        }
+    }
+
     void Start()
     {
         zombieAudios = gameObject.GetComponents<AudioSource>();
+
+        transform.parent = parent.transform;
         attacker = new Attacker(Time.time);
         itemBag = new ItemBag();
         lastBarkTimer = UnityEngine.Random.Range(MIN_BARK_TIME, MAX_BARK_TIME);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 
+using Random = UnityEngine.Random;
+
 public enum GameState
 {
     FirstPhase,
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour {
 
     private PlayerManager playerManager;
     private BasementManager basementManager;
+    private IControl monsterControl;
 
     public event EventHandler<GameStateChangedEventArgs> GameStateChangedEvent;
 
@@ -61,14 +64,22 @@ public class GameManager : MonoBehaviour {
 
         var noControlAvailable = false;
 
+        //Monster logic
+        int numberOfControllers = Input.GetJoystickNames().Length;
+        int monsterIndex = Random.RandomRange(0, numberOfControllers);
+        Debug.Log("The monsta is:" + monsterIndex);
+
         for(int i = 0; i < 4 && !noControlAvailable; i++)
         {
             var control = XBoxJoystickControl.GetControl();
             if (control != null)
             {
-                var player = playerManager.CreatePlayer();
+                var player = playerManager.CreatePlayer(i == monsterIndex);
                 if (player != null)
                 {
+                    if (i == monsterIndex)
+                        monsterControl = control;
+
                     control.SetControllable(player);
                     controllers.Add(control);
                     control.PauseRequestEvent += OnPauseRequestEvent;
@@ -135,6 +146,7 @@ public class GameManager : MonoBehaviour {
                 if (Time.time > firstPhaseLength)
                 {
                     StartCoroutine("ShowText");
+                    TransformMonster();
                     ChangeState(GameState.SecondPhase);
                 }
                 break;
@@ -142,7 +154,6 @@ public class GameManager : MonoBehaviour {
             case GameState.SecondPhase:
                 if (Time.time > secondPhaseLength)
                 {
-                    
                     ChangeState(GameState.Ended);
                 }
                 break;
@@ -153,6 +164,24 @@ public class GameManager : MonoBehaviour {
                     //ending conditions here
                 }
                 break;
+        }
+    }
+
+    void TransformMonster()
+    {
+        var players = playerManager.GetPlayerList();
+        for (int i = 0; i < players.Count; i++)
+        {
+            var player = players[i];
+            if (!player.IsMonster()) continue;
+
+            var initialPos = player.transform.position;
+
+            players.Remove(player);
+            Destroy(player.gameObject);
+
+            monsterControl.SetControllable(MonstahPlayer.Create(initialPos));
+            return;
         }
     }
 
@@ -167,7 +196,16 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator Fade(GameObject go)
     {
-        yield return new WaitForSeconds(3.0f);
+        for(int i = 0; i < 30; i++)
+        {
+            var components = go.GetComponentsInChildren<SpriteRenderer>();
+            foreach (var renderer in components)
+            {
+                renderer.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), i / 30.0f);
+            }
+            yield return new WaitForSeconds(0.1f);
+
+        }
         Destroy(go);
     }
 }
