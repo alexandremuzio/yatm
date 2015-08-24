@@ -46,8 +46,25 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
+        playerManager.AllPlayersDiedEvent += OnAllPlayersDiedEvent;
+        playerManager.MonsterDiedEvent += OnMonsterDiedEvent;
         basementManager = GetComponent<BasementManager>();
         basementManager.AllCitizensDiedEvent += OnAllCitiziensDiedEvent;
+    }
+
+    //event handlers
+    private void OnMonsterDiedEvent(object sender, EventArgs e)
+    {
+        Debug.Log("The monster has died");
+        StartCoroutine("ShowPlayersWin");
+        ChangeState(GameState.SecondPhase);
+    }
+
+    private void OnAllPlayersDiedEvent(object sender, EventArgs e)
+    {
+        Debug.Log("The players have died");
+        StartCoroutine("ShowMonstahWins");
+        ChangeState(GameState.SecondPhase);
     }
 
     private void OnAllCitiziensDiedEvent(object sender, EventArgs e)
@@ -145,7 +162,7 @@ public class GameManager : MonoBehaviour {
             case GameState.FirstPhase:
                 if (Time.time > firstPhaseLength)
                 {
-                    StartCoroutine("ShowText");
+                    StartCoroutine("ShowMonstahTime");
                     TransformPlayerIntoMonster();
                     ChangeState(GameState.SecondPhase);
                 }
@@ -185,9 +202,29 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    IEnumerator ShowText()
+
+    //ui related
+    IEnumerator ShowMonstahTime()
     {
         var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahTimeText");
+        GameObject go = Instantiate(prefab);
+        yield return new WaitForSeconds(2.0f);
+
+        StartCoroutine("Fade", go);
+    }
+
+    IEnumerator ShowPlayersWin()
+    {
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/PlayersWinText");
+        GameObject go = Instantiate(prefab);
+        yield return new WaitForSeconds(2.0f);
+
+        StartCoroutine("Fade", go);
+    }
+
+    IEnumerator ShowMonstahWins()
+    {
+        var prefab = Resources.Load<GameObject>("Prefabs/HUD/MonstahWinsText");
         GameObject go = Instantiate(prefab);
         yield return new WaitForSeconds(2.0f);
 
@@ -204,7 +241,6 @@ public class GameManager : MonoBehaviour {
                 renderer.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), i / 30.0f);
             }
             yield return new WaitForSeconds(0.1f);
-
         }
         Destroy(go);
     }
