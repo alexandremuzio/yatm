@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour {
                 if (Time.time > firstPhaseLength)
                 {
                     StartCoroutine("ShowText");
-                    TransformMonster();
+                    TransformPlayerIntoMonster();
                     ChangeState(GameState.SecondPhase);
                 }
                 break;
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void TransformMonster()
+    void TransformPlayerIntoMonster()
     {
         var players = playerManager.GetPlayerList();
         for (int i = 0; i < players.Count; i++)

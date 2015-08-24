@@ -56,7 +56,7 @@ class Fireball : MonoBehaviour
             health.Damage(damage);
         }
 
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     [ContextMenu("SpawnFireball")]

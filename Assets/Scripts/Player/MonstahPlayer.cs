@@ -8,7 +8,6 @@ public class MonstahPlayer : Player
     
     public IWeapon ExtraWeapon { get; private set; }
 
-
     public static MonstahPlayer Create(Vector3 initialPos)
     {
         var playerPrefab = Resources.Load<MonstahPlayer>("Prefabs/MonstahPlayer");

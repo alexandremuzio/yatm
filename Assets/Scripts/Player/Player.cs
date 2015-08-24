@@ -3,22 +3,41 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour, IControllable
 {
-    protected Rigidbody2D rb2d;
+
+    public event EventHandler DiedEvent;
+    public IWeapon Weapon { get; protected set; }
 
     public float rotateSpeed = 1000f;
     public float playerSpeed = 5f;
 
+    protected Rigidbody2D rb2d;
     protected Vector2 moveToDir;
     protected Vector2 lookAtDir;
 
     [SerializeField]
     protected bool _isMonster = false;
 
-    public IWeapon Weapon { get; protected set; }
 
     protected void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        Health health = gameObject.GetComponentInChildren<Health>();
+        if (!health.IsAlive())
+        {
+            //Create animation
+
+            if (DiedEvent != null)
+            {
+                DiedEvent(this, null);
+            }
+
+            //TODO - show add animation here
+            Destroy(gameObject);
+        }
     }
 
     protected void FixedUpdate()
