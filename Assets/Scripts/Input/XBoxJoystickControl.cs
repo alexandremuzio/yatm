@@ -53,6 +53,7 @@ class XBoxJoystickControl : IControl
         {
             controllable.MoveOnDir(new Vector2(x, y).normalized);
         }
+        //Debug.Log(x + " " + y + " ");
 
         // Right Stick for aiming
         x = Input.GetAxisRaw("Joystick" + index + "AimXAxis");
