@@ -68,7 +68,7 @@ public abstract class Player : MonoBehaviour, IControllable
         }
 
         moveToDir = Vector2.zero;
-        lookAtDir = Vector2.zero;
+        lookAtDir = Vector2.zero;   
     }
 
 

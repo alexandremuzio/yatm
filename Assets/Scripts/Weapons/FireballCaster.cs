@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 class FireballCaster : MonoBehaviour, IWeapon
 {
-    public float maxMana = 100;
+    public int maxMana = 100;
     public float castCooldownTime = 1f;
 
     private float timer;
 
     [SerializeField]
-    private float _mana;
+    private int _mana;
 
     public static FireballCaster Create(Player player)
     {
@@ -57,6 +57,18 @@ class FireballCaster : MonoBehaviour, IWeapon
 
         _mana -= 1;
         timer = 0.0f;
+    }
+
+
+    public int GetAmmoValue()
+    {
+        return maxMana;
+    }
+
+
+    public int GetMaxAmmoValue()
+    {
+        return _mana;
     }
 }
 

@@ -61,5 +61,17 @@ class MachineGun : MonoBehaviour, IWeapon
             _ammo = maxAmmo;
         }
     }
+
+
+    public int GetAmmoValue()
+    {
+        return _ammo;
+    }
+
+
+    public int GetMaxAmmoValue()
+    {
+        return maxAmmo;
+    }
 }
 
