@@ -3,8 +3,9 @@
 
 class MachineGun : MonoBehaviour, IWeapon
 {
-    public float timer;
+    [SerializeField]
     public float bulletCooldownTime = 0.3f;
+    public float lastBulletTimer;
 
     [SerializeField]
     private int maxAmmo = 20;
@@ -13,37 +14,35 @@ class MachineGun : MonoBehaviour, IWeapon
     private int _ammo;
 
     AudioSource gunAudio;
+    AudioSource gunEmptyAudio;
 
     public static MachineGun Create(Player player)
     {
         GameObject gunObject = player.transform.FindChild("GunPosition").gameObject;
         MachineGun gun  = gunObject.AddComponent<MachineGun>();
-        gun.timer = 0.0f;
 
         return gun;
     }
 
     void Start()
     {
-        gunAudio = gameObject.GetComponent<AudioSource>();
+        var audios = gameObject.GetComponents<AudioSource>();
+        gunAudio = audios[0];
+        gunEmptyAudio = audios[1];
         _ammo = maxAmmo;
-    }
-
-    void FixedUpdate()
-    {
-        timer += Time.deltaTime;
-
-        if (timer > bulletCooldownTime)
-        {
-            timer = bulletCooldownTime;
-        }
+        lastBulletTimer = 0f;
     }
     
     public void Shoot()
     {
-        if (_ammo <= 0) return;
+        if (Time.time - lastBulletTimer < bulletCooldownTime) return;
 
-        if (timer < bulletCooldownTime) return;
+        if (_ammo <= 0)
+        {
+            gunEmptyAudio.Play();
+            lastBulletTimer = Time.time;
+            return;
+        }
 
         //Debug.Log("Calling Shoot!");
         RaycastBullet.Create(transform.position, new Vector2((float)Mathf.Cos((transform.rotation.eulerAngles.z + 90) * Mathf.PI / 180),
@@ -51,7 +50,7 @@ class MachineGun : MonoBehaviour, IWeapon
 
         gunAudio.Play();
         _ammo -= 1;
-        timer = 0.0f;
+        lastBulletTimer = Time.time;
     }
 
     public void AddAmmo(int ammo)
