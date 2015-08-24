@@ -24,8 +24,11 @@ public class NPC : MonoBehaviour
         }
     }
 
+    
+
     void Start()
     {
+        
         transform.parent = parent.transform;
     }
 

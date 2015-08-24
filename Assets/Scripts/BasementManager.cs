@@ -19,8 +19,13 @@ public class BasementManager : MonoBehaviour
 
     public event EventHandler<EventArgs> AllCitizensDiedEvent;
 
+    AudioSource screamAudio;
+
     void Start()
     {
+        var audios = gameObject.GetComponents<AudioSource>();
+        screamAudio = audios[1];
+
         npcPrefab = Resources.Load<NPC>("Prefabs/NPC");
         var basementPrefab = Resources.Load<Basement>("Prefabs/Basement");
 
@@ -48,7 +53,6 @@ public class BasementManager : MonoBehaviour
 
     void Update()
     {
-
         foreach (Transform t in respawnPoints)
         {
             if (peopleCount > 5)
@@ -59,6 +63,7 @@ public class BasementManager : MonoBehaviour
             peopleCount++;
         }
     }
+
     private void SpawnPerson(Vector3 position)
     {
         var npc = Instantiate<NPC>(npcPrefab);
@@ -76,8 +81,8 @@ public class BasementManager : MonoBehaviour
     {
         NPC npc = (NPC)sender;
         npcs.Remove(npc);
-
-        if(npcs.Count == 0)
+        screamAudio.Play();
+        if (npcs.Count == 0)
         {
             if(AllCitizensDiedEvent != null)
             {
