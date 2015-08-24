@@ -6,6 +6,7 @@ class Fireball : MonoBehaviour
     public float maxMana = 200;
    
     public float aliveTime = 2f;
+    public float damage = 30f;
 
     private float timer;
 
@@ -17,7 +18,8 @@ class Fireball : MonoBehaviour
 
     public static Fireball Create(Vector2 position, float angle)
     {
-        var fireballPrefab = Resources.Load<Fireball>("Prefabs/fireball");
+        var fireballPrefab = Resources.Load<Fireball>("Prefabs/Fireball");
+        Debug.Log(fireballPrefab);
         var fireball = Instantiate(fireballPrefab);
         fireball._angle = angle;
         fireball.transform.position = position;
@@ -40,6 +42,18 @@ class Fireball : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
+    }
+
+    void OnTriggerEnter2D (Collider2D other)
+    {
+
+        Health health = other.gameObject.transform.parent.GetComponentInChildren<Health>();
+        if (health != null)
+        {
+            health.Damage(damage);
+        }
+
+        Destroy(this.gameObject);
     }
 
     [ContextMenu("SpawnFireball")]

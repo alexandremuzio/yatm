@@ -11,6 +11,7 @@ public class NormalPlayer : Player
 
         selfAttacker = new SelfAttacker(Time.time);
         Weapon = MachineGun.Create(this);
+        //Weapon = FireballCaster.Create(this);
     }
 
     new void FixedUpdate()
