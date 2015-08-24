@@ -23,18 +23,16 @@ public abstract class Player : MonoBehaviour, IControllable
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    protected void Update()
     {
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
             //Create animation
-
             if (DiedEvent != null)
             {
                 DiedEvent(this, null);
             }
-
             //TODO - show add animation here
             Destroy(gameObject);
         }

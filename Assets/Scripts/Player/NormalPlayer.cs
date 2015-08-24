@@ -24,8 +24,12 @@ public class NormalPlayer : Player
     {
         var TextPrefab = Resources.Load<Text>("Prefabs/HUD/AmmoText");
         ammoText = Instantiate(TextPrefab);
-        ammoText.rectTransform.parent = GameObject.Find("Canvas").transform;
-        
+        ammoText.rectTransform.SetParent(GameObject.Find("Canvas").transform);        
+    }
+
+    void OnDestroy()
+    {
+        Destroy(ammoText.gameObject);
     }
 
     new void Start()
@@ -39,10 +43,11 @@ public class NormalPlayer : Player
 
     public Vector3 textOffset = new Vector3(0, 100, 0);
 
-    void Update()
+    new void Update()
     {
         ammoText.rectTransform.position = transform.position + textOffset;
         ammoText.text = Weapon.GetAmmoValue() + "/" + Weapon.GetMaxAmmoValue();
+        base.Update();
     }
 
     new void FixedUpdate()
