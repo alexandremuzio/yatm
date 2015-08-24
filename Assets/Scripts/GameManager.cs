@@ -43,12 +43,19 @@ public class GameManager : MonoBehaviour {
 
     public event EventHandler<GameStateChangedEventArgs> GameStateChangedEvent;
 
+    AudioSource screamAudio;
+
     void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
         playerManager.AllPlayersDiedEvent += OnAllPlayersDiedEvent;
         playerManager.MonsterDiedEvent += OnMonsterDiedEvent;
         basementManager = GetComponent<BasementManager>();
+
+        var audios = gameObject.GetComponents<AudioSource>();
+
+        screamAudio = audios[0];
+
         basementManager.AllCitizensDiedEvent += OnAllCitiziensDiedEvent;
     }
 
@@ -164,6 +171,7 @@ public class GameManager : MonoBehaviour {
                 {
                     StartCoroutine("ShowMonstahTime");
                     TransformPlayerIntoMonster();
+                    screamAudio.Play();
                     ChangeState(GameState.SecondPhase);
                 }
                 break;
