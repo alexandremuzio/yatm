@@ -21,7 +21,6 @@ public class Enemy : MonoBehaviour
 
     public event EventHandler DiedEvent;
 
-
     void Start()
     {
         attacker = new Attacker(Time.time);
@@ -33,22 +32,26 @@ public class Enemy : MonoBehaviour
         Health health = gameObject.GetComponentInChildren<Health>();
         if (!health.IsAlive())
         {
-            //Create animation
             itemBag.Open(transform);
-            Destroy(gameObject);    
+            Die();
         }
     }
+
+    public void Die()
+    {
+        if (DiedEvent != null)
+        {
+            DiedEvent(this, null);
+        }
+        Destroy(gameObject);
+    }
+
     void FixedUpdate()
     {
         if (movementStrategy != null)
         {
             movementStrategy.Run();
         }
-    }
-
-    public void SetGameObjectToFollow(GameObject go)
-    {
-        movementStrategy = new EnemyFollowStrategy(this, go);
     }
 
     public void SetPathToFollow(List<Vector2> path)
@@ -68,9 +71,9 @@ public class Enemy : MonoBehaviour
         movementStrategy = strategy;
     }
 
-    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC)
+    public void SetNextStrategyPeopleAttack(Func<List<NPC>> getListOfNPC, Func<List<Player>> getListOfPlayers)
     {
-        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC);
+        nextStrategy = new EnemyAttackPeopleStrategy(this, getListOfNPC, getListOfPlayers);
     }
 
     public float GetSpeed()
@@ -86,5 +89,10 @@ public class Enemy : MonoBehaviour
     void OnCollisionStay2D(Collision2D coll)
     {
         attacker.Attack(coll);
+    }
+
+    public void SetFollowStrategy(Func<List<NPC>> getNPCList, Func<List<Player>> getPlayerList)
+    {
+        movementStrategy = new EnemyFollowStrategy(this, getNPCList, getPlayerList);
     }
 }

@@ -17,6 +17,8 @@ public class BasementManager : MonoBehaviour
     NPC npcPrefab;
     List<GameObject> npcBodiesPrefabList;
 
+    public event EventHandler<EventArgs> AllCitizensDiedEvent;
+
     void Start()
     {
         npcPrefab = Resources.Load<NPC>("Prefabs/NPC");
@@ -68,14 +70,20 @@ public class BasementManager : MonoBehaviour
         npc.SetBasementToWanderAround(basement);
         npcs.Add(npc);
         npc.DiedEvent += OnDiedEvent;
-
     }
 
     private void OnDiedEvent(object sender, EventArgs e)
     {
         NPC npc = (NPC)sender;
-
         npcs.Remove(npc);
+
+        if(npcs.Count == 0)
+        {
+            if(AllCitizensDiedEvent != null)
+            {
+                AllCitizensDiedEvent(this, null);
+            }
+        }
     }
 
     public List<NPC> GetNPCList()
