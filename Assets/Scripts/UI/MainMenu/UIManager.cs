@@ -26,6 +26,14 @@ public class UIManager : MonoBehaviour {
         {
             b.enabled = true;
         }
+        foreach (Text t in go.GetComponentsInChildren<Text>())
+        {
+            Debug.Log(t.name);
+            foreach (Button b in t.GetComponentsInChildren<Button>())
+            {
+                b.enabled = true;
+            }
+        }
     }
 
     public void DisableButtons(GameObject go)
@@ -34,11 +42,13 @@ public class UIManager : MonoBehaviour {
         {
             b.enabled = false;
         }
-    }
 
-    public void ChangeFirtSelection(GameObject go)
-    {
-        var es = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        es.firstSelectedGameObject = go;
+        foreach (Text t in go.GetComponentsInChildren<Text>())
+        {
+            foreach (Button b in t.GetComponentsInChildren<Button>())
+            {
+                b.enabled = true;
+            }
+        }
     }
 }
