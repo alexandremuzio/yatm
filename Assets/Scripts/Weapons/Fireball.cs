@@ -3,7 +3,6 @@ using System;
 
 class Fireball : MonoBehaviour
 {
-    public float maxMana = 200;
    
     public float aliveTime = 2f;
     public float damage = 30f;
@@ -46,6 +45,10 @@ class Fireball : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D other)
     {
+        if (other.gameObject.transform.parent.gameObject.name.Contains("MonstahPlayer")) return;
+
+        Debug.Log(other.name);
+        Debug.Log(other.transform.parent.name);
 
         Health health = other.gameObject.transform.parent.GetComponentInChildren<Health>();
         if (health != null)

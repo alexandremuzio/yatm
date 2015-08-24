@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 class FireballCaster : MonoBehaviour, IWeapon
 {
-    public float maxMana = 10;
+    public float maxMana = 100;
     public float castCooldownTime = 1f;
 
     private float timer;
