@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEngine.UI;
+using UnityEngine;
 using System;
 
 public class NormalPlayer : Player
@@ -17,16 +18,36 @@ public class NormalPlayer : Player
         return player;
     }
 
+    Text ammoText;
+
+    void Awake()
+    {
+        var TextPrefab = Resources.Load<Text>("Prefabs/HUD/AmmoText");
+        ammoText = Instantiate(TextPrefab);
+        ammoText.rectTransform.parent = GameObject.Find("Canvas").transform;
+        
+    }
+
     new void Start()
     {
         base.Start();
         selfAttacker = new SelfAttacker(Time.time);
         Weapon = MachineGun.Create(this);
+
         //Weapon = FireballCaster.Create(this);
+    }
+
+    public Vector3 textOffset = new Vector3(0, 100, 0);
+
+    void Update()
+    {
+        ammoText.rectTransform.position = transform.position + textOffset;
+        ammoText.text = Weapon.GetAmmoValue() + "/" + Weapon.GetMaxAmmoValue();
     }
 
     new void FixedUpdate()
     {
+
         base.FixedUpdate();
     }
 

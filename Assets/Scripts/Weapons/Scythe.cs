@@ -48,4 +48,16 @@ class Scythe : MonoBehaviour, IWeapon
             health.Damage(damage);            
         }
     }
+
+
+    public int GetAmmoValue()
+    {
+        return 0;
+    }
+
+
+    public int GetMaxAmmoValue()
+    {
+        return 0;
+    }
 }
